@@ -12,11 +12,12 @@ public class EventServiceImpl implements EventService {
 
     @Autowired
     private EventRepository eventRepository;
+    private Object Exception;
 
     @Override
-    public Event getEventId(String eventId) {
+    public Event getEventId(String eventId) throws Throwable {
         if (!eventRepository.findById(eventId).isPresent()) {
-            return new Event();
+            throw (Throwable) Exception;
         }
         return eventRepository.findById(eventId).get();
     }

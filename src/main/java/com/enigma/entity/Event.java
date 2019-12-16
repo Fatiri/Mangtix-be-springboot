@@ -1,5 +1,7 @@
 package com.enigma.entity;
 
+import com.enigma.constanta.StringConstant;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -14,11 +16,12 @@ import java.util.Objects;
 public class Event {
 
     @Id
-    @GeneratedValue(generator = "system-uuid2")
-    @GenericGenerator(name = "system-uuid2", strategy = "uuid2")
+    @GeneratedValue(generator = StringConstant.SYSTEM_UUID2)
+    @GenericGenerator(name = StringConstant.SYSTEM_UUID2, strategy = StringConstant.UUID2)
     private String eventId;
     private String eventName;
     private String description;
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date eventDate;
     private String eventLocation;
     private Boolean publishStatus;

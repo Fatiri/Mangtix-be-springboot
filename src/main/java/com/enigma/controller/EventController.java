@@ -19,7 +19,7 @@ public class EventController {
     }
 
     @GetMapping("/event/{eventId}")
-    public Event getEventById(@PathVariable String eventId) {
+    public Event getEventById(@PathVariable String eventId) throws Throwable {
         return eventService.getEventId(eventId);
     }
 
@@ -27,7 +27,10 @@ public class EventController {
     public Event saveEvent(@RequestBody Event event) {
         return eventService.saveEvent(event);
     }
-
+    @PutMapping("/event")
+    public Event updateEvent(@RequestBody Event event) {
+        return eventService.saveEvent(event);
+    }
     @DeleteMapping("/event/{eventId}")
     public void deleteEvent(@PathVariable String eventId) {
         eventService.deleteEvent(eventId);
