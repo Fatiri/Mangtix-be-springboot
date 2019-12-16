@@ -1,6 +1,8 @@
 package com.enigma.services.impl;
 
+import com.enigma.constanta.StringConstant;
 import com.enigma.entity.Payment;
+import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.PaymentRepository;
 import com.enigma.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,10 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Payment getPaymentId(String paymentId) {
-        return null;
+        if (!paymentRepository.findById(paymentId).isPresent()) {
+            throw new NotFoundException(String.format(StringConstant.ID_PAYMENT_NOT_FOUND, paymentId));
+        }
+        return paymentRepository.findById(paymentId).get();
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.enigma.services.impl;
 
+import com.enigma.constanta.StringConstant;
 import com.enigma.entity.Event;
+import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.EventRepository;
 import com.enigma.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +14,11 @@ public class EventServiceImpl implements EventService {
 
     @Autowired
     private EventRepository eventRepository;
-    private Object Exception;
 
     @Override
-    public Event getEventId(String eventId) throws Throwable {
+    public Event getEventId(String eventId) {
         if (!eventRepository.findById(eventId).isPresent()) {
-            throw (Throwable) Exception;
+            throw new NotFoundException(String.format(StringConstant.ID_EVENT_NOT_FOUND, eventId));
         }
         return eventRepository.findById(eventId).get();
     }
