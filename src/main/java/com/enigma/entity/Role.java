@@ -1,12 +1,12 @@
 package com.enigma.entity;
 
 import com.enigma.constanta.StringConstant;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +19,10 @@ public class Role {
     private String id;
     private String roleName;
     private String description;
+
+    @OneToMany (mappedBy = "role", cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    private List<User> userList = new ArrayList<>();
 
     public Role() {
     }
