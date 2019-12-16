@@ -9,7 +9,8 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Objects;
 
-@Entity(name = "mst_ticket")
+@Entity
+@Table(name = "mst_ticket")
 public class Ticket {
 
     @Id
