@@ -1,4 +1,7 @@
 package com.enigma.repositories;
 
-public class TicketRepository {
+import com.enigma.entity.Ticket;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TicketRepository extends JpaRepository<Ticket, String> {
 }
