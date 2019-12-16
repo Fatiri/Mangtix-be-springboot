@@ -1,6 +1,8 @@
 package com.enigma.services.impl;
 
+import com.enigma.constanta.StringConstant;
 import com.enigma.entity.Booking;
+import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.BookingRepository;
 import com.enigma.services.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking getBookingById(String bookingId) {
+        if (!bookingRepository.findById(bookingId).isPresent()){
+            throw new NotFoundException(String.format(StringConstant.ID_BOOKING_NOT_FOUND, bookingId));
+        }
         return bookingRepository.findById(bookingId).get();
     }
 
