@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TicketServiceImpl {
+public class TicketServiceImpl implements com.enigma.services.TicketService {
 
     @Autowired
     TicketRepository ticketRepository;
@@ -23,6 +23,7 @@ public class TicketServiceImpl {
     @Autowired
     EventService eventService;
 
+    @Override
     public Ticket saveTicket(Ticket ticket){
         Category category=categoryService.getCategoryById(ticket.getCategoryIdTransient());
         ticket.setCategory(category);
@@ -30,15 +31,18 @@ public class TicketServiceImpl {
         ticket.setEvent(event);
         return ticketRepository.save(ticket);
     }
+    @Override
     public Ticket getTicketById(String id){
         if (!ticketRepository.findById(id).isPresent()){
             throw new NotFoundException(String.format(StringConstant.ID_TICKET_NOT_FOUND,id));
         }
         return ticketRepository.findById(id).get();
     }
+    @Override
     public List<Ticket> getAllTicket(){
         return ticketRepository.findAll();
     }
+    @Override
     public void delete(String id){
         ticketRepository.deleteById(id);
     }
