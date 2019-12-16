@@ -5,10 +5,11 @@ import com.enigma.entity.User;
 import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.UserRepository;
 import com.enigma.services.UserService;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired

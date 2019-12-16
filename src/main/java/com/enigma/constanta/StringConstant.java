@@ -9,4 +9,5 @@ public class StringConstant {
 
     public static final String ID_BOOKING_NOT_FOUND = "id Booking %s Not Found";
     public static final String ID_USER_NOT_FOUND = "id User %s Not Found";
+    public static final String ID_Role_NOT_FOUND = "id Role %s Not Found";
 }
