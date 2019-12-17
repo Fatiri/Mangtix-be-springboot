@@ -11,4 +11,12 @@ public class StringConstant {
     public static final String BOOKING="booking";
     public static final String USER_ID="user_id";
     public static final String TRX_BOOKING = "trx_booking";
+    public static final String MST_USER = "mst_user";
+    public static final String ROLE_ID = "role_id";
+    public static final String USER = "user";
+    public static final String MST_ROLE = "mst_role";
+    public static final String ROLE = "role";
+    public static final String TRX_BOOKING_DETAIL = "trx_booking_detail";
+    public static final String BOOKING_ID = "booking_id";
+    public static final String TICKET_ID = "ticket_id";
 }
