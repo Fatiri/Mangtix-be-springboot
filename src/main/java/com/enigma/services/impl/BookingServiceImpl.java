@@ -29,13 +29,16 @@ public class BookingServiceImpl implements BookingService {
     public Booking booking(Booking booking) {
         User user = userService.getUserById(booking.getUserIdTransient());
         booking.setUser(user);
+        bookingDetailIdTransient(booking);
+        return bookingRepository.save(booking);
+    }
+
+    private void bookingDetailIdTransient(Booking booking) {
         for (BookingDetail bookingDetail: booking.getBookingDetailList()) {
              bookingDetail.setBooking(booking);
              Ticket ticket = ticketService.getTicketById(bookingDetail.getTicketIdTransient());
              bookingDetail.setTicket(ticket);
-             System.out.println(booking);
         }
-        return bookingRepository.save(booking);
     }
 
     @Override
