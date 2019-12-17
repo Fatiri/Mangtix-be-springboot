@@ -1,9 +1,9 @@
 package com.enigma.repositories;
 
-import com.enigma.entity.Ticket;
+import com.enigma.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TicketRepository extends JpaRepository<Ticket, String> {
+public interface RoleRepository extends JpaRepository <Role, String> {
 }
