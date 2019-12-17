@@ -2,9 +2,12 @@ package com.enigma.services.impl;
 
 import com.enigma.constanta.StringConstant;
 import com.enigma.entity.Booking;
+import com.enigma.entity.BookingDetail;
+import com.enigma.entity.User;
 import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.BookingRepository;
 import com.enigma.services.BookingService;
+import com.enigma.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +18,17 @@ public class BookingServiceImpl implements BookingService {
 
     @Autowired
     BookingRepository bookingRepository;
+    @Autowired
+    UserService userService;
 
     @Override
     public Booking booking(Booking booking) {
+        User user = userService.getUserById(booking.getUserIdTransient());
+        booking.setUser(user);
+        for (BookingDetail bookingDetail: booking.getBookingDetailList()) {
+             bookingDetail.setBooking(booking);
+             System.out.println(booking);
+        }
         return bookingRepository.save(booking);
     }
 

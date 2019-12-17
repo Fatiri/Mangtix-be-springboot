@@ -2,7 +2,6 @@ package com.enigma.entity;
 
 import com.enigma.constanta.StringConstant;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -54,6 +53,22 @@ public class BookingDetail {
 
     public void setSubtotal(BigDecimal subtotal) {
         this.subtotal = subtotal;
+    }
+
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
+
+    public String getBookingIdTransient() {
+        return bookingIdTransient;
+    }
+
+    public void setBookingIdTransient(String bookingIdTransient) {
+        this.bookingIdTransient = bookingIdTransient;
     }
 
     @Override

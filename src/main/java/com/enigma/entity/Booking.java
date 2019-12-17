@@ -1,9 +1,7 @@
 package com.enigma.entity;
-
 import com.enigma.constanta.StringConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -71,6 +69,30 @@ public class Booking {
 
     public void setPaymentStatus(Boolean paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getUserIdTransient() {
+        return userIdTransient;
+    }
+
+    public void setUserIdTransient(String userIdTransient) {
+        this.userIdTransient = userIdTransient;
+    }
+
+    public List<BookingDetail> getBookingDetailList() {
+        return bookingDetailList;
+    }
+
+    public void setBookingDetailList(List<BookingDetail> bookingDetailList) {
+        this.bookingDetailList = bookingDetailList;
     }
 
     @Override
