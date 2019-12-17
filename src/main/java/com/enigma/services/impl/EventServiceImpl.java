@@ -16,11 +16,11 @@ public class EventServiceImpl implements EventService {
     private EventRepository eventRepository;
 
     @Override
-    public Event getEventId(String eventId) {
-        if (!eventRepository.findById(eventId).isPresent()) {
-            throw new NotFoundException(String.format(StringConstant.ID_EVENT_NOT_FOUND, eventId));
+    public Event getEventById(String id) {
+        if (!eventRepository.findById(id).isPresent()) {
+            throw new NotFoundException(String.format(StringConstant.ID_EVENT_NOT_FOUND, id));
         }
-        return eventRepository.findById(eventId).get();
+        return eventRepository.findById(id).get();
     }
 
     @Override
@@ -29,8 +29,8 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void deleteEvent(String eventId) {
-        eventRepository.deleteById(eventId);
+    public void deleteEvent(String id) {
+        eventRepository.deleteById(id);
     }
 
     @Override

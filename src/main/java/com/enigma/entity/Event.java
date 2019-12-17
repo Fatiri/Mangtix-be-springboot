@@ -18,7 +18,7 @@ public class Event {
     @Id
     @GeneratedValue(generator = StringConstant.SYSTEM_UUID2)
     @GenericGenerator(name = StringConstant.SYSTEM_UUID2, strategy = StringConstant.UUID2)
-    private String eventId;
+    private String id;
     private String eventName;
     private String description;
     @JsonFormat(pattern = "dd-MM-yyyy")
@@ -38,12 +38,12 @@ public class Event {
         this.publishStatus = publishStatus;
     }
 
-    public String getEventId() {
-        return eventId;
+    public String getId() {
+        return id;
     }
 
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getEventName() {
@@ -99,7 +99,7 @@ public class Event {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Event event = (Event) o;
-        return Objects.equals(eventId, event.eventId) &&
+        return Objects.equals(id, event.id) &&
                 Objects.equals(eventName, event.eventName) &&
                 Objects.equals(description, event.description) &&
                 Objects.equals(eventDate, event.eventDate) &&
@@ -110,6 +110,6 @@ public class Event {
 
     @Override
     public int hashCode() {
-        return Objects.hash(eventId, eventName, description, eventDate, eventLocation, publishStatus, permissionLatter);
+        return Objects.hash(id, eventName, description, eventDate, eventLocation, publishStatus, permissionLatter);
     }
 }

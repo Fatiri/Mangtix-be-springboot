@@ -2,7 +2,6 @@ package com.enigma.entity;
 
 import com.enigma.constanta.StringConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.graalvm.compiler.replacements.nodes.CStringConstant;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;

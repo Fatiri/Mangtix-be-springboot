@@ -4,10 +4,7 @@ import com.enigma.constanta.StringConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
@@ -23,6 +20,11 @@ public class Payment {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date paymentDate;
     private Boolean statusArrival;
+    @OneToOne
+    @JoinColumn(name = "id")
+    private Booking booking;
+    @Transient
+    private String bookingIdTransient;
 
     public Payment() {
     }
@@ -63,6 +65,22 @@ public class Payment {
 
     public void setStatusArrival(Boolean statusArrival) {
         this.statusArrival = statusArrival;
+    }
+
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
+
+    public String getBookingIdTransient() {
+        return bookingIdTransient;
+    }
+
+    public void setBookingIdTransient(String bookingIdTransient) {
+        this.bookingIdTransient = bookingIdTransient;
     }
 
     @Override

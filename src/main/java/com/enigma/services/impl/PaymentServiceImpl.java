@@ -1,9 +1,11 @@
 package com.enigma.services.impl;
 
 import com.enigma.constanta.StringConstant;
+import com.enigma.entity.Booking;
 import com.enigma.entity.Payment;
 import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.PaymentRepository;
+import com.enigma.services.BookingService;
 import com.enigma.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Autowired
     PaymentRepository paymentRepository;
+    @Autowired
+    BookingService bookingService;
 
     @Override
     public Payment getPaymentId(String paymentId) {
@@ -25,6 +29,8 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Payment savePayment(Payment payment) {
+        Booking booking = bookingService.getBookingById(payment.getBookingIdTransient());
+        payment.setBooking(booking);
         return paymentRepository.save(payment);
     }
 

@@ -27,7 +27,7 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
     public Ticket saveTicket(Ticket ticket){
         Category category=categoryService.getCategoryById(ticket.getCategoryIdTransient());
         ticket.setCategory(category);
-        Event event=eventService.getEventId(ticket.getEventIdTransient());
+        Event event=eventService.getEventById(ticket.getEventIdTransient());
         ticket.setEvent(event);
         return ticketRepository.save(ticket);
     }
