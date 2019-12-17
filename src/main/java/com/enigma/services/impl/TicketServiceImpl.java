@@ -57,6 +57,6 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
             throw new ForbiddenException(MessageConstant.TICKET_IS_GONE);
         }
         ticket.deductQuantity(quantity);
-        saveTicket(ticket);
+        ticketRepository.save(ticket);
     }
 }
