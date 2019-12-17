@@ -25,7 +25,7 @@ public class CategoryController {
 
     @GetMapping("/categories")
     public List<Category> getAllCategory(){
-        return getAllCategory();
+        return categoryService.getAllCategory();
     }
 
     @DeleteMapping("/category/{id}")
