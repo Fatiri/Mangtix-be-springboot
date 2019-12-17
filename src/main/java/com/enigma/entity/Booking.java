@@ -4,12 +4,11 @@ import com.enigma.constanta.StringConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -23,6 +22,15 @@ public class Booking {
     private Date bookDate;
     private BigDecimal totalPrice;
     private Boolean paymentStatus;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    @Transient
+    private String userIdTransient;
+
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.PERSIST)
+    private List<BookingDetail> bookingDetailList = new ArrayList<>();
 
     public Booking() {
     }

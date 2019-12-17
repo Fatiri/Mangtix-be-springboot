@@ -2,10 +2,13 @@ package com.enigma.entity;
 
 import com.enigma.constanta.StringConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -29,6 +32,11 @@ public class User {
     private Role role;
     @Transient
     private String roleIdTransient;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    private List<Booking> bookingList = new ArrayList<>();
+
 
     public User() {
     }

@@ -3,10 +3,7 @@ package com.enigma.entity;
 import com.enigma.constanta.StringConstant;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -20,6 +17,12 @@ public class BookingDetail {
     private String id;
     private Integer quantity;
     private BigDecimal subtotal;
+
+    @ManyToOne
+    @JoinColumn(name = "booking_id")
+    private Booking booking;
+    @Transient
+    private String bookingIdTransient;
 
     public BookingDetail() {
     }
