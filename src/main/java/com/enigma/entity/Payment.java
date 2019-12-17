@@ -15,13 +15,13 @@ public class Payment {
     @Id
     @GeneratedValue(generator = StringConstant.SYSTEM_UUID2)
     @GenericGenerator(name = StringConstant.SYSTEM_UUID2, strategy = StringConstant.UUID2)
-    private String paymentId;
+    private String id;
     private BigDecimal totalPayment;
     @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date paymentDate;
-    private Boolean statusArrival;
+    private Date paymentDate = new Date();
+    private Boolean statusArrival = false;
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "booking_id")
     private Booking booking;
     @Transient
     private String bookingIdTransient;
@@ -35,12 +35,12 @@ public class Payment {
         this.statusArrival = statusArrival;
     }
 
-    public String getPaymentId() {
-        return paymentId;
+    public String getId() {
+        return id;
     }
 
-    public void setPaymentId(String paymentId) {
-        this.paymentId = paymentId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public BigDecimal getTotalPayment() {
@@ -88,7 +88,7 @@ public class Payment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Payment payment = (Payment) o;
-        return Objects.equals(paymentId, payment.paymentId) &&
+        return Objects.equals(id, payment.id) &&
                 Objects.equals(totalPayment, payment.totalPayment) &&
                 Objects.equals(paymentDate, payment.paymentDate) &&
                 Objects.equals(statusArrival, payment.statusArrival);
@@ -96,6 +96,6 @@ public class Payment {
 
     @Override
     public int hashCode() {
-        return Objects.hash(paymentId, totalPayment, paymentDate, statusArrival);
+        return Objects.hash(id, totalPayment, paymentDate, statusArrival);
     }
 }

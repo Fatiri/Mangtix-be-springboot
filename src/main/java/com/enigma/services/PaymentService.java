@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PaymentService {
 
-    public Payment getPaymentId(String paymentId);
+    public Payment getPaymentById(String paymentId);
     public Payment savePayment(Payment payment);
     public void deletePayment(String paymentId);
     public List<Payment> getAllPayment();

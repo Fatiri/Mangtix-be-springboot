@@ -4,10 +4,7 @@ import com.enigma.constanta.StringConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
@@ -26,6 +23,12 @@ public class User {
     private Date birthDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createAt;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+    @Transient
+    private String roleIdTransient;
 
     public User() {
     }
