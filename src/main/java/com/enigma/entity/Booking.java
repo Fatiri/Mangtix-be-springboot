@@ -1,6 +1,7 @@
 package com.enigma.entity;
 import com.enigma.constanta.StringConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -28,6 +29,7 @@ public class Booking {
     private String userIdTransient;
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.PERSIST)
+    @JsonIgnore
     private List<BookingDetail> bookingDetailList = new ArrayList<>();
 
     public Booking() {
