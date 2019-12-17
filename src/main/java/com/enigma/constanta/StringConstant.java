@@ -7,5 +7,8 @@ public class StringConstant {
     public static final String CATEGORY_ID="category_id";
     public static final String EVENT_ID="event_id";
     public static final String DATE_TIME_FORMAT="dd-MM-yyyy HH:mm:ss";
-    public static final String BOOKING_DETAIL_ID="booking_detail_id";
+    public static final String TICKET="ticket";
+    public static final String BOOKING="booking";
+    public static final String USER_ID="user_id";
+    public static final String TRX_BOOKING = "trx_booking";
 }

@@ -3,6 +3,8 @@ import com.enigma.constanta.StringConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -11,25 +13,26 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "trx_booking")
+@Table(name = StringConstant.TRX_BOOKING)
 public class Booking {
     @Id
     @GeneratedValue(generator = StringConstant.SYSTEM_UUID2)
     @GenericGenerator(name = StringConstant.SYSTEM_UUID2, strategy = StringConstant.UUID2)
     private String id;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = StringConstant.DATE_TIME_FORMAT)
     private Date bookDate;
     private BigDecimal totalPrice;
     private Boolean paymentStatus;
 
-    @OneToMany(mappedBy = "booking", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = StringConstant.BOOKING, cascade = CascadeType.PERSIST)
     private List<BookingDetail> bookingDetailList = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn (name = "ticket_id")
-    private Ticket ticket;
+    @JoinColumn(name = StringConstant.USER_ID)
+    @JsonIgnore
+    private User user;
     @Transient
-    private String ticketIdTransient;
+    private String userIdTransient;
 
     public Booking() {
     }
@@ -80,20 +83,20 @@ public class Booking {
         this.bookingDetailList = bookingDetailList;
     }
 
-    public Ticket getTicket() {
-        return ticket;
+    public User getUser() {
+        return user;
     }
 
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public String getTicketIdTransient() {
-        return this.ticketIdTransient = ticket.getId();
+    public String getUserIdTransient() {
+        return userIdTransient;
     }
 
-    public void setTicketIdTransient(String ticketIdTransient) {
-        this.ticketIdTransient = ticketIdTransient;
+    public void setUserIdTransient(String userIdTransient) {
+        this.userIdTransient = userIdTransient;
     }
 
     @Override

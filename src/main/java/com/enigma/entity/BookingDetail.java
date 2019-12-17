@@ -24,11 +24,10 @@ public class BookingDetail {
     private Booking booking;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private User user;
+    @JoinColumn (name = "ticket_id")
+    private Ticket ticket;
     @Transient
-    private String userIdTransient;
+    private String ticketIdTransient;
 
     public BookingDetail() {
     }
@@ -70,23 +69,21 @@ public class BookingDetail {
         this.booking = booking;
     }
 
-    public User getUser() {
-        return user;
+    public Ticket getTicket() {
+        return ticket;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
     }
 
-    public String getUserIdTransient() {
-        return this.userIdTransient = user.getId();
-
+    public String getTicketIdTransient() {
+        return ticketIdTransient;
     }
 
-    public void setUserIdTransient(String userIdTransient) {
-        this.userIdTransient = userIdTransient;
+    public void setTicketIdTransient(String ticketIdTransient) {
+        this.ticketIdTransient = ticketIdTransient;
     }
-
 
     @Override
     public boolean equals(Object o) {

@@ -1,9 +1,9 @@
 package com.enigma.services.impl;
 
 import com.enigma.constanta.MessageConstant;
-import com.enigma.constanta.StringConstant;
 import com.enigma.entity.Booking;
 import com.enigma.entity.BookingDetail;
+import com.enigma.entity.Ticket;
 import com.enigma.entity.User;
 import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.BookingRepository;
@@ -31,6 +31,8 @@ public class BookingServiceImpl implements BookingService {
         booking.setUser(user);
         for (BookingDetail bookingDetail: booking.getBookingDetailList()) {
              bookingDetail.setBooking(booking);
+             Ticket ticket = ticketService.getTicketById(bookingDetail.getTicketIdTransient());
+             bookingDetail.setTicket(ticket);
              System.out.println(booking);
         }
         return bookingRepository.save(booking);
