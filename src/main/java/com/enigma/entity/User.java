@@ -99,6 +99,22 @@ public class User {
         this.createAt = createAt;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getRoleIdTransient() {
+        return roleIdTransient;
+    }
+
+    public void setRoleIdTransient(String roleIdTransient) {
+        this.roleIdTransient = roleIdTransient;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
