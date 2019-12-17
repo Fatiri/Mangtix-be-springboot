@@ -1,13 +1,14 @@
 package com.enigma.entity;
 
 import com.enigma.constanta.StringConstant;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name = "mst_booking_detail")
+@Table(name = "trx_booking_detail")
 public class BookingDetail {
 
     @Id
@@ -19,9 +20,15 @@ public class BookingDetail {
 
     @ManyToOne
     @JoinColumn(name = "booking_id")
+    @JsonIgnore
     private Booking booking;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
     @Transient
-    private String bookingIdTransient;
+    private String userIdTransient;
 
     public BookingDetail() {
     }
@@ -63,13 +70,23 @@ public class BookingDetail {
         this.booking = booking;
     }
 
-    public String getBookingIdTransient() {
-        return bookingIdTransient;
+    public User getUser() {
+        return user;
     }
 
-    public void setBookingIdTransient(String bookingIdTransient) {
-        this.bookingIdTransient = bookingIdTransient;
+    public void setUser(User user) {
+        this.user = user;
     }
+
+    public String getUserIdTransient() {
+        return this.userIdTransient = user.getId();
+
+    }
+
+    public void setUserIdTransient(String userIdTransient) {
+        this.userIdTransient = userIdTransient;
+    }
+
 
     @Override
     public boolean equals(Object o) {

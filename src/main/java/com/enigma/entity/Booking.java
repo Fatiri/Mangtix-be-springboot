@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "mst_booking")
+@Table(name = "trx_booking")
 public class Booking {
     @Id
     @GeneratedValue(generator = StringConstant.SYSTEM_UUID2)
@@ -22,15 +22,14 @@ public class Booking {
     private BigDecimal totalPrice;
     private Boolean paymentStatus;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-    @Transient
-    private String userIdTransient;
-
     @OneToMany(mappedBy = "booking", cascade = CascadeType.PERSIST)
-    @JsonIgnore
     private List<BookingDetail> bookingDetailList = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn (name = "ticket_id")
+    private Ticket ticket;
+    @Transient
+    private String ticketIdTransient;
 
     public Booking() {
     }
@@ -73,28 +72,28 @@ public class Booking {
         this.paymentStatus = paymentStatus;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getUserIdTransient() {
-        return userIdTransient;
-    }
-
-    public void setUserIdTransient(String userIdTransient) {
-        this.userIdTransient = userIdTransient;
-    }
-
     public List<BookingDetail> getBookingDetailList() {
         return bookingDetailList;
     }
 
     public void setBookingDetailList(List<BookingDetail> bookingDetailList) {
         this.bookingDetailList = bookingDetailList;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    public String getTicketIdTransient() {
+        return this.ticketIdTransient = ticket.getId();
+    }
+
+    public void setTicketIdTransient(String ticketIdTransient) {
+        this.ticketIdTransient = ticketIdTransient;
     }
 
     @Override
