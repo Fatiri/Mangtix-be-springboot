@@ -18,18 +18,21 @@ public class EventController {
         return eventService.getEvents();
     }
 
-    @GetMapping("/event/{eventId}")
-    public Event getEventById(@PathVariable String eventId) {
-        return eventService.getEventId(eventId);
+    @GetMapping("/event/{id}")
+    public Event getEventById(@PathVariable String id) throws Throwable {
+        return eventService.getEventById(id);
     }
 
     @PostMapping("/event")
     public Event saveEvent(@RequestBody Event event) {
         return eventService.saveEvent(event);
     }
-
-    @DeleteMapping("/event/{eventId}")
-    public void deleteEvent(@PathVariable String eventId) {
-        eventService.deleteEvent(eventId);
+    @PutMapping("/event")
+    public Event updateEvent(@RequestBody Event event) {
+        return eventService.saveEvent(event);
+    }
+    @DeleteMapping("/event/{id}")
+    public void deleteEvent(@PathVariable String id) {
+        eventService.deleteEvent(id);
     }
 }

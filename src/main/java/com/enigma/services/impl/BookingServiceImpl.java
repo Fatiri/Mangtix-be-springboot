@@ -31,13 +31,13 @@ public class BookingServiceImpl implements BookingService {
         User user = userService.getUserById(booking.getUserIdTransient());
         booking.setUser(user);
         BigDecimal sumSubtotal;
-        for (BookingDetail bookingDetail: booking.getBookingDetailList()) {
-             bookingDetail.setBooking(booking);
+        for (BookingDetail bookingDetail : booking.getBookingDetailList()) {
+            bookingDetail.setBooking(booking);
             Ticket ticket = ticketService.getTicketById(bookingDetail.getTicketIdTransient());
             bookingDetail.setTicket(ticket);
             ticketService.deduct(bookingDetail.getTicket().getId(), bookingDetail.getQuantity());
-             sumSubtotal = ticket.getPrice().multiply(new BigDecimal(bookingDetail.getQuantity()));
-             bookingDetail.setSubtotal(sumSubtotal);
+            sumSubtotal = ticket.getPrice().multiply(new BigDecimal(bookingDetail.getQuantity()));
+            bookingDetail.setSubtotal(sumSubtotal);
         }
         return bookingRepository.save(booking);
     }
@@ -49,7 +49,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking getBookingById(String bookingId) {
-        if (!bookingRepository.findById(bookingId).isPresent()){
+        if (!bookingRepository.findById(bookingId).isPresent()) {
             throw new NotFoundException(String.format(MessageConstant.ID_BOOKING_NOT_FOUND, bookingId));
         }
         return bookingRepository.findById(bookingId).get();
@@ -57,6 +57,6 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void deleteBookingDataById(String bookingId) {
-            bookingRepository.deleteById(bookingId);
+        bookingRepository.deleteById(bookingId);
     }
 }
