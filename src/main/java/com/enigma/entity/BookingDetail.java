@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name = "trx_booking_detail")
+@Table(name = StringConstant.TRX_BOOKING_DETAIL)
 public class BookingDetail {
 
     @Id
@@ -19,12 +19,12 @@ public class BookingDetail {
     private BigDecimal subtotal;
 
     @ManyToOne
-    @JoinColumn(name = "booking_id")
+    @JoinColumn(name = StringConstant.BOOKING_ID)
     @JsonIgnore
     private Booking booking;
 
     @ManyToOne
-    @JoinColumn (name = "ticket_id")
+    @JoinColumn (name = StringConstant.TICKET_ID)
     private Ticket ticket;
     @Transient
     private String ticketIdTransient;
