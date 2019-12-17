@@ -1,5 +1,6 @@
 package com.enigma.services.impl;
 
+import com.enigma.constanta.MessageConstant;
 import com.enigma.constanta.StringConstant;
 import com.enigma.entity.Category;
 import com.enigma.entity.Event;
@@ -34,7 +35,7 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
     @Override
     public Ticket getTicketById(String id){
         if (!ticketRepository.findById(id).isPresent()){
-            throw new NotFoundException(String.format(StringConstant.ID_TICKET_NOT_FOUND,id));
+            throw new NotFoundException(String.format(MessageConstant.ID_TICKET_NOT_FOUND,id));
         }
         return ticketRepository.findById(id).get();
     }
