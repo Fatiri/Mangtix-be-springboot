@@ -1,16 +1,18 @@
 package com.enigma.entity;
 
 import com.enigma.constanta.StringConstant;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "mst_ticket")
+@Table(name = StringConstant.MST_TICKET)
 public class Ticket {
 
     @Id
@@ -18,19 +20,25 @@ public class Ticket {
     @GenericGenerator(name = StringConstant.SYSTEM_UUID2, strategy = StringConstant.UUID2)
     private String id;
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = StringConstant.CATEGORY_ID)
     private Category category;
     @ManyToOne
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = StringConstant.EVENT_ID)
     private Event event;
     private BigDecimal price;
     private Integer quantity;
-    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    @DateTimeFormat(pattern = StringConstant.DATE_TIME_FORMAT)
     private Calendar createAt;
     @Transient
     private String categoryIdTransient;
     @Transient
     private String eventIdTransient;
+    @OneToMany(mappedBy = StringConstant.BOOKING_DETAIL_ID, cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    private List<BookingDetail>bookingDetails;
+
+    public Ticket() {
+    }
 
     public Ticket(BigDecimal price, Integer quantity, Calendar createAt, String categoryIdTransient, String eventIdTransient) {
         this.price = price;
@@ -102,6 +110,10 @@ public class Ticket {
 
     public void setEventIdTransient(String eventIdTransient) {
         this.eventIdTransient = eventIdTransient;
+    }
+
+    public void deductQuantity(Integer quantity){
+        this.quantity=this.quantity-quantity;
     }
 
     @Override

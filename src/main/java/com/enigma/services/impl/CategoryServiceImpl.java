@@ -1,5 +1,6 @@
 package com.enigma.services.impl;
 
+import com.enigma.constanta.MessageConstant;
 import com.enigma.constanta.StringConstant;
 import com.enigma.entity.Category;
 import com.enigma.exception.NotFoundException;
@@ -22,7 +23,7 @@ public class CategoryServiceImpl implements com.enigma.services.CategoryService 
     @Override
     public Category getCategoryById(String id){
         if (!categoryRepository.findById(id).isPresent()){
-            throw new NotFoundException(String.format(StringConstant.ID_CATEGORY_NOT_FOUND,id));
+            throw new NotFoundException(String.format(MessageConstant.ID_CATEGORY_NOT_FOUND,id));
         }
         return categoryRepository.findById(id).get();
     }

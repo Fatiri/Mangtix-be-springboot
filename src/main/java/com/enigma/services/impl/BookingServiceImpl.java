@@ -1,5 +1,6 @@
 package com.enigma.services.impl;
 
+import com.enigma.constanta.MessageConstant;
 import com.enigma.constanta.StringConstant;
 import com.enigma.entity.Booking;
 import com.enigma.entity.BookingDetail;
@@ -43,7 +44,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public Booking getBookingById(String bookingId) {
         if (!bookingRepository.findById(bookingId).isPresent()){
-            throw new NotFoundException(String.format(StringConstant.ID_BOOKING_NOT_FOUND, bookingId));
+            throw new NotFoundException(String.format(MessageConstant.ID_BOOKING_NOT_FOUND, bookingId));
         }
         return bookingRepository.findById(bookingId).get();
     }

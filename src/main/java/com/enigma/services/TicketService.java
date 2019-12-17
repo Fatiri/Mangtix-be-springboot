@@ -12,4 +12,7 @@ public interface TicketService {
     List<Ticket> getAllTicket();
 
     void delete(String id);
-}
+
+    void deduct(String id, Integer quantity);
+
+    }

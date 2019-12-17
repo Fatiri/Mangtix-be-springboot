@@ -19,14 +19,21 @@ public class TicketController {
         return ticketService.saveTicket(ticket);
     }
 
+    @PutMapping("/ticket")
+    public Ticket updateTicket(@RequestBody Ticket ticket){
+        return ticketService.saveTicket(ticket);
+    }
+
     @GetMapping("/ticket/{id}")
     public Ticket getTicketById(@PathVariable String id) {
         return ticketService.getTicketById(id);
     }
+
     @GetMapping("/tickets")
     public List<Ticket> getAllTicket(){
         return ticketService.getAllTicket();
     }
+
     @DeleteMapping("/ticket/{id}")
     public void deleteTicketById(@PathVariable String id){
         ticketService.delete(id);
