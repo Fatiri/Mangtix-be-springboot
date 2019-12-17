@@ -19,7 +19,8 @@ public class Category {
     private String id;
     private String categoryName;
 
-
+    public Category() {
+    }
 
     public Category(String categoryName) {
         this.categoryName = categoryName;

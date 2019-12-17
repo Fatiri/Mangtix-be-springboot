@@ -1,28 +1,38 @@
 package com.enigma.entity;
-
 import com.enigma.constanta.StringConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "mst_booking")
+@Table(name = StringConstant.TRX_BOOKING)
 public class Booking {
     @Id
     @GeneratedValue(generator = StringConstant.SYSTEM_UUID2)
     @GenericGenerator(name = StringConstant.SYSTEM_UUID2, strategy = StringConstant.UUID2)
     private String id;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = StringConstant.DATE_TIME_FORMAT)
     private Date bookDate;
     private BigDecimal totalPrice;
     private Boolean paymentStatus;
+
+    @OneToMany(mappedBy = StringConstant.BOOKING, cascade = CascadeType.PERSIST)
+    private List<BookingDetail> bookingDetailList = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = StringConstant.USER_ID)
+    @JsonIgnore
+    private User user;
+    @Transient
+    private String userIdTransient;
 
     public Booking() {
     }
@@ -63,6 +73,30 @@ public class Booking {
 
     public void setPaymentStatus(Boolean paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+
+    public List<BookingDetail> getBookingDetailList() {
+        return bookingDetailList;
+    }
+
+    public void setBookingDetailList(List<BookingDetail> bookingDetailList) {
+        this.bookingDetailList = bookingDetailList;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getUserIdTransient() {
+        return userIdTransient;
+    }
+
+    public void setUserIdTransient(String userIdTransient) {
+        this.userIdTransient = userIdTransient;
     }
 
     @Override
