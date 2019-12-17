@@ -32,6 +32,9 @@ public class Ticket {
     @Transient
     private String eventIdTransient;
 
+    public Ticket() {
+    }
+
     public Ticket(BigDecimal price, Integer quantity, Calendar createAt, String categoryIdTransient, String eventIdTransient) {
         this.price = price;
         this.quantity = quantity;

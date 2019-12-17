@@ -12,6 +12,7 @@ import com.enigma.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -30,6 +31,7 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
         ticket.setCategory(category);
         Event event=eventService.getEventId(ticket.getEventIdTransient());
         ticket.setEvent(event);
+        ticket.setCreateAt(Calendar.getInstance());
         return ticketRepository.save(ticket);
     }
     @Override
