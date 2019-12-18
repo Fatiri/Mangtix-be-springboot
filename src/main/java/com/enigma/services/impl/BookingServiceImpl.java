@@ -72,7 +72,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking getBookingById(String bookingId) {
-        if (!bookingRepository.findById(bookingId).isPresent()){
+        if (!bookingRepository.findById(bookingId).isPresent()) {
             throw new NotFoundException(String.format(MessageConstant.ID_BOOKING_NOT_FOUND, bookingId));
         }
         return bookingRepository.findById(bookingId).get();
@@ -80,6 +80,6 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void deleteBookingDataById(String bookingId) {
-            bookingRepository.deleteById(bookingId);
+        bookingRepository.deleteById(bookingId);
     }
 }
