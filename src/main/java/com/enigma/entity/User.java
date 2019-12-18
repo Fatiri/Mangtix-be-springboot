@@ -35,7 +35,6 @@ public class User {
     private String roleIdTransient;
 
     @OneToMany(mappedBy = StringConstant.USER, cascade = CascadeType.PERSIST)
-    @JsonIgnore
     private List<Booking> bookingList = new ArrayList<>();
 
 
@@ -122,6 +121,14 @@ public class User {
 
     public void setRoleIdTransient(String roleIdTransient) {
         this.roleIdTransient = roleIdTransient;
+    }
+
+    public List<Booking> getBookingList() {
+        return bookingList;
+    }
+
+    public void setBookingList(List<Booking> bookingList) {
+        this.bookingList = bookingList;
     }
 
     @Override
