@@ -35,6 +35,7 @@ public class User {
     private String roleIdTransient;
 
     @OneToMany(mappedBy = StringConstant.USER, cascade = CascadeType.PERSIST)
+    @JsonIgnore
     private List<Booking> bookingList = new ArrayList<>();
 
 

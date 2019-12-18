@@ -24,12 +24,11 @@ public class Booking {
     private BigDecimal totalPrice;
     private Boolean paymentStatus;
 
-    @OneToMany(mappedBy = StringConstant.BOOKING, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = StringConstant.BOOKING, cascade = CascadeType.ALL)
     private List<BookingDetail> bookingDetailList = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = StringConstant.USER_ID)
-    @JsonIgnore
     private User user;
     @Transient
     private String userIdTransient;
