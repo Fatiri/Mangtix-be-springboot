@@ -61,4 +61,11 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
         ticket.deductQuantity(quantity);
         ticketRepository.save(ticket);
     }
+
+    public void restoreQuantity(String id, Integer quantity){
+        Ticket ticket = getTicketById(id);
+        Integer sum = ticket.getQuantity()+quantity;
+        ticket.setQuantity(sum);
+        ticketRepository.save(ticket);
+    }
 }
