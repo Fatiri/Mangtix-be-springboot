@@ -42,7 +42,7 @@ public class BookingServiceImpl implements BookingService {
             Ticket ticket = ticketService.getTicketById(bookingDetail.getTicketIdTransient());
             bookingDetail.setTicket(ticket);
             List<BookingDetail> bookingDetailList = new ArrayList<>();
-            if (eventService.getEventId(bookingDetail.getTicket().getEvent().getEventId()).equals(bookingDetail.getTicket().getEvent())){
+            if (eventService.getEventById(bookingDetail.getTicket().getEvent().getId()).equals(bookingDetail.getTicket().getEvent())){
                 bookingDetailList.add(bookingDetail);
                 for (BookingDetail bookingDetailByEvent : bookingDetailList) {
                     bookingDetail.getQuantity();

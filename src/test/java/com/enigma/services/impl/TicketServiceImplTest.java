@@ -53,7 +53,7 @@ class TicketServiceImplTest {
         ticket.setPrice(price);
         ticket.setQuantity(quantity);
         ticket.setCategoryIdTransient(category.getId());
-        ticket.setEventIdTransient(event.getEventId());
+        ticket.setEventIdTransient(event.getId());
         ticket.setCreateAt(Calendar.getInstance());
         ticketService.saveTicket(ticket);
         Mockito.verify(ticketRepository, Mockito.times(mockitoTimes)).save(ticket);
@@ -77,7 +77,7 @@ class TicketServiceImplTest {
         ticket.setPrice(price);
         ticket.setQuantity(quantity);
         ticket.setCategoryIdTransient(category.getId());
-        ticket.setEventIdTransient(event.getEventId());
+        ticket.setEventIdTransient(event.getId());
         ticket.setCreateAt(Calendar.getInstance());
         ticketService.saveTicket(ticket);
         Mockito.verify(categoryService, Mockito.times(mockitoTimes)).getCategoryById(ticket.getCategoryIdTransient());
@@ -100,10 +100,10 @@ class TicketServiceImplTest {
         ticket.setPrice(price);
         ticket.setQuantity(quantity);
         ticket.setCategoryIdTransient(category.getId());
-        ticket.setEventIdTransient(event.getEventId());
+        ticket.setEventIdTransient(event.getId());
         ticket.setCreateAt(Calendar.getInstance());
         ticketService.saveTicket(ticket);
-        Mockito.verify(eventService, Mockito.times(mockitoTimes)).getEventId(ticket.getEventIdTransient());
+        Mockito.verify(eventService, Mockito.times(mockitoTimes)).getEventById(ticket.getEventIdTransient());
     }
 
     @Test
@@ -125,7 +125,7 @@ class TicketServiceImplTest {
         ticket.setPrice(price);
         ticket.setQuantity(quantity);
         ticket.setCategoryIdTransient(category.getId());
-        ticket.setEventIdTransient(event.getEventId());
+        ticket.setEventIdTransient(event.getId());
         ticket.setCreateAt(Calendar.getInstance());
 
         Mockito.when(ticketRepository.findById(ticketId)).thenReturn(Optional.of(ticket));
