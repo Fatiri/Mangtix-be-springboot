@@ -1,7 +1,6 @@
 package com.enigma.services.impl;
 
 import com.enigma.constanta.MessageConstant;
-import com.enigma.constanta.StringConstant;
 import com.enigma.entity.Category;
 import com.enigma.entity.Event;
 import com.enigma.entity.Ticket;
@@ -28,10 +27,13 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
 
     @Override
     public Ticket saveTicket(Ticket ticket){
+        Event event=eventService.getEventId(ticket.getEventIdTransient());
+        if (event.getPublishStatus()==false){
+            throw new ForbiddenException(MessageConstant.EVENT_HAS_NOT_VALIDATED);
+        }
+        ticket.setEvent(event);
         Category category=categoryService.getCategoryById(ticket.getCategoryIdTransient());
         ticket.setCategory(category);
-        Event event=eventService.getEventId(ticket.getEventIdTransient());
-        ticket.setEvent(event);
         ticket.setCreateAt(Calendar.getInstance());
         return ticketRepository.save(ticket);
     }
