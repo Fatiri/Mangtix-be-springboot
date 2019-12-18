@@ -34,38 +34,12 @@ public class BookingServiceImpl implements BookingService {
         booking.setUser(user);
         booking.setPaymentStatus(false);
         BigDecimal sumSubtotal;
-        int quotaTicket = 0;
-        Set<String> eventList = new HashSet<>();
+
         for (BookingDetail bookingDetail : booking.getBookingDetailList()) {
             bookingDetail.setBooking(booking);
             Ticket ticket = ticketService.getTicketById(bookingDetail.getTicketIdTransient());
             bookingDetail.setTicket(ticket);
-            eventList.add(bookingDetail.getTicket().getEvent().getId());
 
-            for (String eventId : eventList) {
-                if (eventId.equals(bookingDetail.getTicket().getEvent().getId())) {
-                    for (Ticket ticket1 : bookingDetail.getTicket().getEvent().getTickets()) {
-                        //di sini harus ada validai buat reset quotaticket 0 kalo id event berbeda
-                        if (ticket1.getId().equals(bookingDetail.getTicketIdTransient())) {
-                            quotaTicket = quotaTicket + bookingDetail.getQuantity();
-                        }
-                        if (quotaTicket > 4) {
-                            throw new ForbiddenException(StringConstant.TICKET_MAX);
-                        }
-                    }
-                }
-                else {
-                    quotaTicket = 0;
-                    for (Ticket ticket1 : bookingDetail.getTicket().getEvent().getTickets()) {
-                        if (ticket1.getId().equals(bookingDetail.getTicketIdTransient())) {
-                            quotaTicket = quotaTicket + bookingDetail.getQuantity();
-                        }
-                        if (quotaTicket > 4) {
-                            throw new ForbiddenException(StringConstant.TICKET_MAX);
-                        }
-                    }
-                }
-            }
             ticketService.deduct(bookingDetail.getTicket().getId(), bookingDetail.getQuantity());
             sumSubtotal = ticket.getPrice().multiply(new BigDecimal(bookingDetail.getQuantity()));
             bookingDetail.setSubtotal(sumSubtotal);
