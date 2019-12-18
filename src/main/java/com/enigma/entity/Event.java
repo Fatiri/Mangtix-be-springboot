@@ -1,5 +1,7 @@
 package com.enigma.entity;
 
+import com.enigma.constanta.StringConstant;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -14,14 +16,15 @@ import java.util.Objects;
 public class Event {
 
     @Id
-    @GeneratedValue(generator = "system-uuid2")
-    @GenericGenerator(name = "system-uuid2", strategy = "uuid2")
-    private String eventId;
+    @GeneratedValue(generator = StringConstant.SYSTEM_UUID2)
+    @GenericGenerator(name = StringConstant.SYSTEM_UUID2, strategy = StringConstant.UUID2)
+    private String id;
     private String eventName;
     private String description;
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date eventDate;
     private String eventLocation;
-    private Boolean publishStatus;
+    private Boolean publishStatus = false;
     private String permissionLatter;
 
     public Event() {
@@ -35,12 +38,12 @@ public class Event {
         this.publishStatus = publishStatus;
     }
 
-    public String getEventId() {
-        return eventId;
+    public String getId() {
+        return id;
     }
 
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getEventName() {
@@ -96,7 +99,7 @@ public class Event {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Event event = (Event) o;
-        return Objects.equals(eventId, event.eventId) &&
+        return Objects.equals(id, event.id) &&
                 Objects.equals(eventName, event.eventName) &&
                 Objects.equals(description, event.description) &&
                 Objects.equals(eventDate, event.eventDate) &&
@@ -107,6 +110,6 @@ public class Event {
 
     @Override
     public int hashCode() {
-        return Objects.hash(eventId, eventName, description, eventDate, eventLocation, publishStatus, permissionLatter);
+        return Objects.hash(id, eventName, description, eventDate, eventLocation, publishStatus, permissionLatter);
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "mst_role")
+@Table(name = StringConstant.MST_ROLE)
 public class Role {
 
     @Id
@@ -20,7 +20,7 @@ public class Role {
     private String roleName;
     private String description;
 
-    @OneToMany (mappedBy = "role", cascade = CascadeType.PERSIST)
+    @OneToMany (mappedBy = StringConstant.ROLE, cascade = CascadeType.PERSIST)
     @JsonIgnore
     private List<User> userList = new ArrayList<>();
 

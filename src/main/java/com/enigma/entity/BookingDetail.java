@@ -1,17 +1,14 @@
 package com.enigma.entity;
 
 import com.enigma.constanta.StringConstant;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name = "mst_booking_detail")
+@Table(name = StringConstant.TRX_BOOKING_DETAIL)
 public class BookingDetail {
 
     @Id
@@ -20,6 +17,17 @@ public class BookingDetail {
     private String id;
     private Integer quantity;
     private BigDecimal subtotal;
+
+    @ManyToOne
+    @JoinColumn(name = StringConstant.BOOKING_ID)
+    @JsonIgnore
+    private Booking booking;
+
+    @ManyToOne
+    @JoinColumn (name = StringConstant.TICKET_ID)
+    private Ticket ticket;
+    @Transient
+    private String ticketIdTransient;
 
     public BookingDetail() {
     }
@@ -51,6 +59,30 @@ public class BookingDetail {
 
     public void setSubtotal(BigDecimal subtotal) {
         this.subtotal = subtotal;
+    }
+
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    public String getTicketIdTransient() {
+        return ticketIdTransient;
+    }
+
+    public void setTicketIdTransient(String ticketIdTransient) {
+        this.ticketIdTransient = ticketIdTransient;
     }
 
     @Override

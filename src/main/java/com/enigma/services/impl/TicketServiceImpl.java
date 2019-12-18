@@ -27,7 +27,7 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
 
     @Override
     public Ticket saveTicket(Ticket ticket){
-        Event event=eventService.getEventId(ticket.getEventIdTransient());
+        Event event=eventService.getEventById(ticket.getEventIdTransient());
         if (event.getPublishStatus()==false){
             throw new ForbiddenException(MessageConstant.EVENT_HAS_NOT_VALIDATED);
         }
@@ -59,6 +59,6 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
             throw new ForbiddenException(MessageConstant.TICKET_IS_GONE);
         }
         ticket.deductQuantity(quantity);
-        saveTicket(ticket);
+        ticketRepository.save(ticket);
     }
 }

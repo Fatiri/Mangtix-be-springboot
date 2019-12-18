@@ -2,14 +2,18 @@ package com.enigma.entity;
 
 import com.enigma.constanta.StringConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "mst_user")
+@Table(name = StringConstant.MST_USER)
 public class User {
     @Id
     @GeneratedValue(generator = StringConstant.SYSTEM_UUID2)
@@ -19,16 +23,21 @@ public class User {
     private String password;
     private String fullName;
     private String bornPlace;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = StringConstant.DATE_TIME_FORMAT)
     private Date birthDate;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = StringConstant.DATE_TIME_FORMAT)
     private Date createAt;
 
     @ManyToOne
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = StringConstant.ROLE_ID)
     private Role role;
     @Transient
     private String roleIdTransient;
+
+    @OneToMany(mappedBy = StringConstant.USER, cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    private List<Booking> bookingList = new ArrayList<>();
+
 
     public User() {
     }
@@ -97,6 +106,22 @@ public class User {
 
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getRoleIdTransient() {
+        return roleIdTransient;
+    }
+
+    public void setRoleIdTransient(String roleIdTransient) {
+        this.roleIdTransient = roleIdTransient;
     }
 
     @Override
