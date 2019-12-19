@@ -1,4 +1,9 @@
 package com.enigma.repositories;
 
-public interface CompanyRepository {
-}
+import com.enigma.entity.Company;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+    public interface CompanyRepository extends JpaRepository<Company,String>{
+    }
