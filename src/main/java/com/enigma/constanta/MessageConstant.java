@@ -12,6 +12,7 @@ public class MessageConstant {
     public static final String ID_USER_NOT_FOUND = "id User %s Not Found";
     public static final String ID_Role_NOT_FOUND = "id Role %s Not Found";
     public static final String ID_LOCATION_NOT_FOUND = "id Location %s Not Found";
+    public static final String ID_CART_NOT_FOUND="id cart %s Not Found";
 
     public static final String EVENT_LOCATION_AND_DATE_TIME_CANNOT_SAME = "Sorry location and that time was already exist";
 }
