@@ -21,4 +21,5 @@ public class StringConstant {
     public static final String BOOKING_ID = "booking_id";
     public static final String TICKET_ID = "ticket_id";
     public static final String TICKET_MAX = "Sorry you cant buy ticket more then 4";
+    public static final String MST_LOCATION = "mst_location";
 }

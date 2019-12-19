@@ -23,7 +23,7 @@ public class Event {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date eventDate;
     private String eventLocation;
-    private Boolean publishStatus = false;
+    private Boolean publishStatus;
     private String permissionLatter;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.PERSIST)

@@ -33,6 +33,7 @@ public class Ticket {
     private String categoryIdTransient;
     @Transient
     private String eventIdTransient;
+
     @OneToMany(mappedBy = StringConstant.TICKET, cascade = CascadeType.PERSIST)
     @JsonIgnore
     private List<BookingDetail>bookingDetails;
