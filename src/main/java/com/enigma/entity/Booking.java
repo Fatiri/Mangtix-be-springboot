@@ -1,7 +1,5 @@
 package com.enigma.entity;
 import com.enigma.constanta.StringConstant;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 

@@ -1,5 +1,6 @@
 package com.enigma.entity;
 
+import com.enigma.constanta.EventConstanta;
 import com.enigma.constanta.StringConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "mst_event")
+@Table(name = EventConstanta.EVENT_TABLE)
 public class Event {
 
     @Id
@@ -19,25 +20,22 @@ public class Event {
     @GenericGenerator(name = StringConstant.SYSTEM_UUID2, strategy = StringConstant.UUID2)
     private String id;
     private String eventName;
-    private String description;
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date eventDate;
-    private String eventLocation;
+    private String descriptionEvent;
     private Boolean publishStatus;
-    private String permissionLatter;
+    @JsonFormat(pattern = EventConstanta.EVENT_DATE_PATTERN)
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = EventConstanta.EVENT_MAPPED_BY, cascade = CascadeType.PERSIST)
     @JsonIgnore
     private List<Ticket> tickets;
 
+    @OneToMany(mappedBy = EventConstanta.EVENT_MAPPED_BY, cascade = CascadeType.ALL)
+    private List<EventDetail> eventDetailList;
     public Event() {
     }
 
-    public Event(String eventName, String description, Date eventDate, String eventLocation, Boolean publishStatus) {
+    public Event(String eventName, String descriptionEvent, Boolean publishStatus) {
         this.eventName = eventName;
-        this.description = description;
-        this.eventDate = eventDate;
-        this.eventLocation = eventLocation;
+        this.descriptionEvent = descriptionEvent;
         this.publishStatus = publishStatus;
     }
 
@@ -57,28 +55,8 @@ public class Event {
         this.eventName = eventName;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getEventDate() {
-        return eventDate;
-    }
-
-    public void setEventDate(Date eventDate) {
-        this.eventDate = eventDate;
-    }
-
-    public String getEventLocation() {
-        return eventLocation;
-    }
-
-    public void setEventLocation(String eventLocation) {
-        this.eventLocation = eventLocation;
+    public String getDescriptionEvent() {
+        return descriptionEvent;
     }
 
     public Boolean getPublishStatus() {
@@ -89,12 +67,8 @@ public class Event {
         this.publishStatus = publishStatus;
     }
 
-    public String getPermissionLatter() {
-        return permissionLatter;
-    }
-
-    public void setPermissionLatter(String permissionLatter) {
-        this.permissionLatter = permissionLatter;
+    public void setDescriptionEvent(String descriptionEvent) {
+        this.descriptionEvent = descriptionEvent;
     }
 
     public List<Ticket> getTickets() {
@@ -105,23 +79,11 @@ public class Event {
         this.tickets = tickets;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Event event = (Event) o;
-        return Objects.equals(id, event.id) &&
-                Objects.equals(eventName, event.eventName) &&
-                Objects.equals(description, event.description) &&
-                Objects.equals(eventDate, event.eventDate) &&
-                Objects.equals(eventLocation, event.eventLocation) &&
-                Objects.equals(publishStatus, event.publishStatus) &&
-                Objects.equals(permissionLatter, event.permissionLatter) &&
-                Objects.equals(tickets, event.tickets);
+    public List<EventDetail> getEventDetailList() {
+        return eventDetailList;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, eventName, description, eventDate, eventLocation, publishStatus, permissionLatter, tickets);
+    public void setEventDetailList(List<EventDetail> eventDetailList) {
+        this.eventDetailList = eventDetailList;
     }
 }
