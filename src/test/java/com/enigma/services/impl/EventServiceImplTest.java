@@ -39,7 +39,7 @@ class EventServiceImplTest {
         String eventLocation = "Bekasi, Summarecon mal Bekasi";
         int expectedCall = 2;
         Boolean publishStatus = false;
-        Event event = new Event(nameEvent, descriptionEvent, eventDate, eventLocation, publishStatus);
+        Event event = new Event(nameEvent, descriptionEvent, publishStatus);
         event.setId(eventId);
         eventService.saveEvent(event);
 
@@ -57,7 +57,7 @@ class EventServiceImplTest {
         Date eventDate = new Date();
         String eventLocation = "Bekasi, Summarecon mal Bekasi";
         Boolean publishStatus = false;
-        Event event = new Event(nameEvent, descriptionEvent, eventDate, eventLocation, publishStatus);
+        Event event = new Event(nameEvent, descriptionEvent, publishStatus);
         event.setId(eventId);
         eventService.saveEvent(event);
 
@@ -67,7 +67,7 @@ class EventServiceImplTest {
         Date date = new Date();
         String location = "Bekasi, Summarecon mal Bekasi";
         Boolean publishStatusConcert = false;
-        Event event2 = new Event(name, description,date, location, publishStatusConcert);
+        Event event2 = new Event(nameEvent, descriptionEvent, publishStatus);
         event.setId(id);
 
         int expectedCalling = 1;
@@ -89,7 +89,7 @@ class EventServiceImplTest {
         int expectedCalling = 1;
 
         Boolean publishStatus = false;
-        Event event = new Event(nameEvent, descriptionEvent, eventDate, eventLocation, publishStatus);
+        Event event = new Event(nameEvent, descriptionEvent, publishStatus);
         event.setId(eventId);
 
         eventService.saveEvent(event);
@@ -107,7 +107,7 @@ class EventServiceImplTest {
         String eventLocation = "Bekasi, Summarecon mal Bekasi";
         int expectedCall = 1;
         Boolean publishStatus = false;
-        Event event = new Event(nameEvent, descriptionEvent, eventDate, eventLocation, publishStatus);
+        Event event = new Event(nameEvent, descriptionEvent, publishStatus);
         event.setId(eventId);
         eventService.saveEvent(event);
         Mockito.verify(eventRepository, Mockito.times(expectedCall)).save(event);

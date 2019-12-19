@@ -9,6 +9,4 @@ import java.util.Date;
 @Repository
 public interface EventRepository extends JpaRepository<Event, String> {
 
-    Boolean existsEventByEventLocationLike(String eventLocation);
-    Boolean existsEventByEventDateLike(String eventDate);
 }

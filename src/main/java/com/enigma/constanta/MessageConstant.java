@@ -5,7 +5,6 @@ public class MessageConstant {
     public static final String ID_TICKET_NOT_FOUND= "id Ticket %s Not Found";
 
     public static final String ID_PAYMENT_NOT_FOUND= "id Payment %s Not Found";
-    public static final String ID_EVENT_NOT_FOUND= "id Event %s Not Found";
     public static final String TICKET_IS_GONE="Ticket is gone, please choose another ticket!";
     public static final String EVENT_HAS_NOT_VALIDATED="this event has not yet been validated";
     public static final String ID_BOOKING_NOT_FOUND = "id Booking %s Not Found";
