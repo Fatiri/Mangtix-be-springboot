@@ -1,9 +1,7 @@
 package com.enigma.services.impl;
 
 import com.enigma.constanta.MessageConstant;
-import com.enigma.constanta.StringConstant;
 import com.enigma.entity.*;
-import com.enigma.exception.ForbiddenException;
 import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.BookingRepository;
 import com.enigma.services.BookingService;
@@ -14,9 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.util.*;
 
 @Service
 public class BookingServiceImpl implements BookingService {
