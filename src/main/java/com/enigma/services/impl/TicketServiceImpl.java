@@ -4,6 +4,7 @@ import com.enigma.constanta.MessageConstant;
 import com.enigma.entity.Category;
 import com.enigma.entity.Event;
 import com.enigma.entity.Ticket;
+import com.enigma.entity.TicketCode;
 import com.enigma.exception.ForbiddenException;
 import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.TicketRepository;
@@ -35,6 +36,15 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
         Category category=categoryService.getCategoryById(ticket.getCategoryIdTransient());
         ticket.setCategory(category);
         ticket.setCreateAt(Calendar.getInstance());
+        for (TicketCode ticketCode:ticket.getTicketCodes()){
+            ticketCode.setTicket(ticket);
+            Integer quantity=ticket.getQuantity();
+            String code;
+            for (int i = 1; i <= quantity; i++) {
+                code=ticket.getEvent().getId()+ticket.getId()+ticket.getCategory().getCategoryName()+i;
+                ticketCode.setTicketCode(code);
+            }
+        }
         return ticketRepository.save(ticket);
     }
     @Override
@@ -52,20 +62,5 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
     public void delete(String id){
         ticketRepository.deleteById(id);
     }
-    @Override
-    public void deduct(String id, Integer quantity){
-        Ticket ticket = getTicketById(id);
-        if (ticket.getQuantity()-quantity<0){
-            throw new ForbiddenException(MessageConstant.TICKET_IS_GONE);
-        }
-        ticket.deductQuantity(quantity);
-        ticketRepository.save(ticket);
-    }
-    @Override
-    public void restoreQuantity(String id, Integer quantity){
-        Ticket ticket = getTicketById(id);
-        Integer sum = ticket.getQuantity()+quantity;
-        ticket.setQuantity(sum);
-        ticketRepository.save(ticket);
-    }
+
 }
