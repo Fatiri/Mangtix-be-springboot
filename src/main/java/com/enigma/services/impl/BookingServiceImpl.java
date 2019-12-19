@@ -32,6 +32,11 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking booking(Booking booking) {
+        User user = userService.getUserById(booking.getUserIdTransient());
+        booking.setUser(user);
+        BookingDetail bookingDetail = new BookingDetail();
+        bookingDetail.setBooking(booking);
+
         return bookingRepository.save(booking);
     }
 
