@@ -1,7 +1,9 @@
 package com.enigma.services.impl;
 
+import com.enigma.constanta.BookingConstant;
 import com.enigma.constanta.MessageConstant;
 import com.enigma.entity.*;
+import com.enigma.exception.ForbiddenException;
 import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.BookingRepository;
 import com.enigma.services.BookingService;
@@ -12,6 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -25,13 +31,33 @@ public class BookingServiceImpl implements BookingService {
     @Autowired
     EventService eventService;
 
+
     @Override
     public Booking booking(Booking booking) {
         User user = userService.getUserById(booking.getUserIdTransient());
         booking.setUser(user);
-        BookingDetail bookingDetail = new BookingDetail();
-        bookingDetail.setBooking(booking);
+        List<TicketCode> remainingTicketAvailable = new ArrayList<>();
+        Integer penampung =0;
 
+        for (BookingDetail bookingDetailList: booking.getBookingDetailList()) {
+            Ticket ticket = ticketService.getTicketById(bookingDetailList.getTicketIdTransient());
+            bookingDetailList.setTicket(ticket);
+            for (TicketCode ticketCodeListOne: bookingDetailList.getTicket().getTicketCodes()) {
+                if (ticketCodeListOne.getAvailable()){
+                    remainingTicketAvailable.add(ticketCodeListOne);
+                    for (int i = 1; i <=remainingTicketAvailable.size() ; i++) {
+                        penampung = i;
+                        if (bookingDetailList.getQuantity()<=penampung){
+                            ticketCodeListOne.setAvailable(true);
+                            bookingDetailList.setSubtotal(bookingDetailList.getTicket().getPrice().multiply(new BigDecimal(bookingDetailList.getQuantity())));
+                        }
+                    }
+                }
+                throw new ForbiddenException(BookingConstant.TICKET_NOT_AVAILABLE);
+            }
+
+        }
+        System.out.println(penampung);
         return bookingRepository.save(booking);
     }
 

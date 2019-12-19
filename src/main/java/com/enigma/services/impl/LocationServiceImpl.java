@@ -5,6 +5,8 @@ import com.enigma.entity.Location;
 import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,11 @@ public class LocationServiceImpl implements com.enigma.services.LocationService 
     @Override
     public Location saveLocation(Location location){
         return locationRepository.save(location);
+    }
+
+    @Override
+    public Page<Location> getAllLocationPage(Pageable pageable) {
+        return locationRepository.findAll(pageable);
     }
 
     @Override
