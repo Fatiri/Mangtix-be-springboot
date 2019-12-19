@@ -10,15 +10,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class LocationServiceImpl {
+public class LocationServiceImpl implements com.enigma.services.LocationService {
 
     @Autowired
     LocationRepository locationRepository;
 
+    @Override
     public Location saveLocation(Location location){
         return locationRepository.save(location);
     }
 
+    @Override
     public Location getLocationById(String id){
         if (!locationRepository.findById(id).isPresent()){
             throw new NotFoundException(String.format(MessageConstant.ID_LOCATION_NOT_FOUND, id));
@@ -26,10 +28,12 @@ public class LocationServiceImpl {
         return locationRepository.findById(id).get();
     }
 
+    @Override
     public List<Location> getAllLocation(){
         return locationRepository.findAll();
     }
 
+    @Override
     public void deleteLocationById(String id){
         locationRepository.deleteById(id);
     }
