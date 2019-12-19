@@ -1,17 +1,9 @@
 package com.enigma.services.impl;
 
 import com.enigma.constanta.MessageConstant;
-import com.enigma.constanta.StringConstant;
-import com.enigma.entity.Category;
-import com.enigma.entity.Event;
 import com.enigma.entity.Role;
-import com.enigma.entity.Ticket;
-import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.RoleRepository;
-import com.enigma.repositories.TicketRepository;
 import com.enigma.services.RoleService;
-import com.enigma.services.TicketService;
-import org.assertj.core.internal.bytebuddy.implementation.bytecode.Throw;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -19,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.math.BigDecimal;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -62,7 +52,7 @@ class RoleServiceImplTest {
     }
 
     @Test
-    void getRoleById_should_callRoleRepository_findById_once() {
+    void getRoleById_should_callRoleRepository_findById_twoTimes() {
         Integer mockitoTimes = 2;
         String roleId = "611b2dde-adef-4e92-ace0-4fc6231abeb6";
         String roleName = "EO";

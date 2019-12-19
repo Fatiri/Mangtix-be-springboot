@@ -42,6 +42,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUserById(String userId) {
+        if (!userRepository.findById(userId).isPresent()){
+            throw new NotFoundException(String.format(MessageConstant.ID_USER_NOT_FOUND, userId));
+        }
         userRepository.deleteById(userId);
     }
 
