@@ -3,6 +3,7 @@ package com.enigma.constanta;
 public class StringConstant {
     public static final String SYSTEM_UUID2 = "system-uuid2";
     public static final String UUID2 = "uuid2";
+
     public static final String MST_TICKET="mst_ticket";
     public static final String CATEGORY_ID="category_id";
     public static final String EVENT_ID="event_id";
@@ -19,4 +20,6 @@ public class StringConstant {
     public static final String TRX_BOOKING_DETAIL = "trx_booking_detail";
     public static final String BOOKING_ID = "booking_id";
     public static final String TICKET_ID = "ticket_id";
+    public static final String TICKET_MAX = "Sorry you cant buy ticket more then 4";
+    public static final String MST_LOCATION = "mst_location";
 }
