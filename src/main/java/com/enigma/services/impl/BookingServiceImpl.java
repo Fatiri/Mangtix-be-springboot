@@ -14,8 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -35,33 +34,17 @@ public class BookingServiceImpl implements BookingService {
         booking.setUser(user);
         booking.setPaymentStatus(false);
         BigDecimal sumSubtotal;
-        Integer quotaTicket = 0;
-        for (BookingDetail bookingDetail: booking.getBookingDetailList()) {
-             quotaTicket = quotaTicket + bookingDetail.getQuantity();
+
+        for (BookingDetail bookingDetail : booking.getBookingDetailList()) {
             bookingDetail.setBooking(booking);
             Ticket ticket = ticketService.getTicketById(bookingDetail.getTicketIdTransient());
             bookingDetail.setTicket(ticket);
-            List<BookingDetail> bookingDetailList = new ArrayList<>();
-            if (eventService.getEventById(bookingDetail.getTicket().getEvent().getId()).equals(bookingDetail.getTicket().getEvent())){
-                bookingDetailList.add(bookingDetail);
-                for (BookingDetail bookingDetailByEvent : bookingDetailList) {
-                    bookingDetail.getQuantity();
-                    quotaTicket = quotaTicket +bookingDetailByEvent.getQuantity();
-                    if (quotaTicket==4){
-                        if (bookingDetailByEvent.getTicket().getEvent().equals(bookingDetail.getTicket().getEvent())){
-                            if (quotaTicket>4){
-                                throw  new ForbiddenException(StringConstant.TICKET_MAX);
-                            }
-                        }
-                    }
 
-                }
-                ticketService.deduct(bookingDetail.getTicket().getId(), bookingDetail.getQuantity());
-                sumSubtotal = ticket.getPrice().multiply(new BigDecimal(bookingDetail.getQuantity()));
-                bookingDetail.setSubtotal(sumSubtotal);
-            }
+            ticketService.deduct(bookingDetail.getTicket().getId(), bookingDetail.getQuantity());
+            sumSubtotal = ticket.getPrice().multiply(new BigDecimal(bookingDetail.getQuantity()));
+            bookingDetail.setSubtotal(sumSubtotal);
+
         }
-
         return bookingRepository.save(booking);
     }
 
@@ -80,6 +63,13 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void deleteBookingDataById(String bookingId) {
+        Booking booking = getBookingById(bookingId);
+        for (BookingDetail bookingDetail : booking.getBookingDetailList()) {
+            String idTicket = bookingDetail.getTicket().getId();
+            Ticket ticket = ticketService.getTicketById(idTicket);
+            ticket.setQuantity(ticket.getQuantity() + bookingDetail.getQuantity());
+        }
         bookingRepository.deleteById(bookingId);
     }
+
 }

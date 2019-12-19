@@ -2,13 +2,12 @@ package com.enigma.entity;
 
 import com.enigma.constanta.StringConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -26,6 +25,10 @@ public class Event {
     private String eventLocation;
     private Boolean publishStatus;
     private String permissionLatter;
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    private List<Ticket> tickets;
 
     public Event() {
     }
@@ -94,6 +97,14 @@ public class Event {
         this.permissionLatter = permissionLatter;
     }
 
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -105,11 +116,12 @@ public class Event {
                 Objects.equals(eventDate, event.eventDate) &&
                 Objects.equals(eventLocation, event.eventLocation) &&
                 Objects.equals(publishStatus, event.publishStatus) &&
-                Objects.equals(permissionLatter, event.permissionLatter);
+                Objects.equals(permissionLatter, event.permissionLatter) &&
+                Objects.equals(tickets, event.tickets);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, eventName, description, eventDate, eventLocation, publishStatus, permissionLatter);
+        return Objects.hash(id, eventName, description, eventDate, eventLocation, publishStatus, permissionLatter, tickets);
     }
 }
