@@ -13,8 +13,5 @@ public interface TicketService {
 
     void delete(String id);
 
-    void deduct(String id, Integer quantity);
-
-    void restoreQuantity(String id, Integer quantity);
 
     }
