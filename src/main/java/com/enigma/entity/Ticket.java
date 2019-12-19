@@ -1,6 +1,7 @@
 package com.enigma.entity;
 
 import com.enigma.constanta.StringConstant;
+import com.enigma.constanta.TicketConstant;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = StringConstant.MST_TICKET)
+@Table(name = TicketConstant.MST_TICKET)
 public class Ticket {
 
     @Id
@@ -20,10 +21,10 @@ public class Ticket {
     @GenericGenerator(name = StringConstant.SYSTEM_UUID2, strategy = StringConstant.UUID2)
     private String id;
     @ManyToOne
-    @JoinColumn(name = StringConstant.CATEGORY_ID)
+    @JoinColumn(name = TicketConstant.CATEGORY_ID)
     private Category category;
     @ManyToOne
-    @JoinColumn(name = StringConstant.EVENT_ID)
+    @JoinColumn(name = TicketConstant.EVENT_ID)
     private Event event;
     private BigDecimal price;
     private Integer quantity;
@@ -34,10 +35,12 @@ public class Ticket {
     @Transient
     private String eventIdTransient;
 
-    @OneToMany(mappedBy = StringConstant.TICKET, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = TicketConstant.TICKET, cascade = CascadeType.PERSIST)
     @JsonIgnore
     private List<BookingDetail>bookingDetails;
 
+    @OneToMany(mappedBy = TicketConstant.TICKET, cascade = CascadeType.PERSIST)
+    private List<TicketCode> ticketCodes;
     public Ticket() {
     }
 
@@ -113,8 +116,20 @@ public class Ticket {
         this.eventIdTransient = eventIdTransient;
     }
 
-    public void deductQuantity(Integer quantity){
-        this.quantity=this.quantity-quantity;
+    public List<BookingDetail> getBookingDetails() {
+        return bookingDetails;
+    }
+
+    public void setBookingDetails(List<BookingDetail> bookingDetails) {
+        this.bookingDetails = bookingDetails;
+    }
+
+    public List<TicketCode> getTicketCodes() {
+        return ticketCodes;
+    }
+
+    public void setTicketCodes(List<TicketCode> ticketCodes) {
+        this.ticketCodes = ticketCodes;
     }
 
     @Override
@@ -129,11 +144,13 @@ public class Ticket {
                 Objects.equals(quantity, ticket.quantity) &&
                 Objects.equals(createAt, ticket.createAt) &&
                 Objects.equals(categoryIdTransient, ticket.categoryIdTransient) &&
-                Objects.equals(eventIdTransient, ticket.eventIdTransient);
+                Objects.equals(eventIdTransient, ticket.eventIdTransient) &&
+                Objects.equals(bookingDetails, ticket.bookingDetails) &&
+                Objects.equals(ticketCodes, ticket.ticketCodes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, category, event, price, quantity, createAt, categoryIdTransient, eventIdTransient);
+        return Objects.hash(id, category, event, price, quantity, createAt, categoryIdTransient, eventIdTransient, bookingDetails, ticketCodes);
     }
 }
