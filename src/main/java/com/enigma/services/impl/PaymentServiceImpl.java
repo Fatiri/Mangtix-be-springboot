@@ -31,10 +31,10 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Payment savePayment(Payment payment) {
-        Booking booking = bookingService.getBookingById(payment.getBookingIdTransient());
-        payment.setBooking(booking);
-        payment.setTotalPayment(booking.getTotalPrice());
-        booking.setPaymentStatus(true);
+//        Booking booking = bookingService.getBookingById(payment.getBookingIdTransient());
+//        payment.setBooking(booking);
+//        payment.setTotalPayment(booking.getTotalPrice());
+//        booking.setPaymentStatus(true);
         return paymentRepository.save(payment);
     }
 
