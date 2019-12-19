@@ -24,4 +24,5 @@ public class StringConstant {
     public static final String MST_LOCATION = "mst_location";
     public static final String COMPANY = "company";
     public static final String COMPANY_ID = "company_id";
+    public static final String MST_CART = "mst_cart";
 }
