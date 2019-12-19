@@ -1,0 +1,82 @@
+package com.enigma.entity;
+
+import com.enigma.constanta.StringConstant;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+@Entity
+@Table(name="mst_company")
+public class Company {
+    @Id
+    @GeneratedValue(generator = StringConstant.SYSTEM_UUID2)
+    @GenericGenerator(name = StringConstant.SYSTEM_UUID2, strategy = StringConstant.UUID2)
+    private String id;
+    private String companyName;
+
+    @OneToMany(mappedBy = StringConstant.COMPANY, cascade = CascadeType.PERSIST)
+    private List<CompanyUser> companyUsers = new ArrayList<>();
+
+    @Transient
+    private String companyIdTransient;
+
+    public Company(){
+    }
+
+    public Company(String companyName, String companyIdTransient) {
+        this.companyName = companyName;
+        this.companyIdTransient = companyIdTransient;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public List<CompanyUser> getCompanyUsers() {
+        return companyUsers;
+    }
+
+    public void setCompanyUsers(List<CompanyUser> companyUsers) {
+        this.companyUsers = companyUsers;
+    }
+
+    public String getCompanyIdTransient() {
+        return companyIdTransient;
+    }
+
+    public void setCompanyIdTransient(String companyIdTransient) {
+        this.companyIdTransient = companyIdTransient;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Company company = (Company) o;
+        return Objects.equals(id, company.id) &&
+                Objects.equals(companyName, company.companyName) &&
+                Objects.equals(companyUsers, company.companyUsers) &&
+                Objects.equals(companyIdTransient, company.companyIdTransient);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, companyName, companyUsers, companyIdTransient);
+    }
+}
