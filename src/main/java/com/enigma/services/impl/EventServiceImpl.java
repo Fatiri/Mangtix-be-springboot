@@ -3,12 +3,14 @@ package com.enigma.services.impl;
 import com.enigma.constanta.EventConstanta;
 import com.enigma.constanta.MessageConstant;
 import com.enigma.constanta.StringConstant;
+import com.enigma.entity.Company;
 import com.enigma.entity.Event;
 import com.enigma.entity.EventDetail;
 import com.enigma.entity.Location;
 import com.enigma.exception.BadRequestException;
 import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.EventRepository;
+import com.enigma.services.CompanyService;
 import com.enigma.services.EventService;
 import com.enigma.services.LocationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -29,6 +31,8 @@ public class EventServiceImpl implements EventService {
     private EventRepository eventRepository;
     @Autowired
     private LocationService locationService;
+    @Autowired
+    private CompanyService companyService;
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -70,6 +74,8 @@ public class EventServiceImpl implements EventService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Company company = companyService.getCompanyById(event.getCompanyIdTransient());
+        event.setCompany(company);
         for (EventDetail eventDetail: event.getEventDetailList()) {
             eventDetail.setEvent(event);
             Location location = locationService.getLocationById(eventDetail.getLocationIdTransient());
