@@ -15,4 +15,6 @@ public interface TicketService {
 
     void deduct(String id, Integer quantity);
 
+    void restoreQuantity(String id, Integer quantity);
+
     }
