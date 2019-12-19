@@ -17,17 +17,18 @@ public class Location {
     @GenericGenerator(name = StringConstant.SYSTEM_UUID2, strategy = StringConstant.UUID2)
     private String id;
     private String city;
-    private String venue;
     private String address;
+    private Double longitude;
+    private Double latitude;
 
     public Location() {
-
     }
 
-    public Location(String city, String venue, String address) {
+    public Location(String city, String address, Double longitude, Double latitude) {
         this.city = city;
-        this.venue = venue;
         this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getId() {
@@ -46,20 +47,28 @@ public class Location {
         this.city = city;
     }
 
-    public String getVenue() {
-        return venue;
-    }
-
-    public void setVenue(String venue) {
-        this.venue = venue;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 
     @Override
@@ -69,12 +78,13 @@ public class Location {
         Location location = (Location) o;
         return Objects.equals(id, location.id) &&
                 Objects.equals(city, location.city) &&
-                Objects.equals(venue, location.venue) &&
-                Objects.equals(address, location.address);
+                Objects.equals(address, location.address) &&
+                Objects.equals(longitude, location.longitude) &&
+                Objects.equals(latitude, location.latitude);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, city, venue, address);
+        return Objects.hash(id, city, address, longitude, latitude);
     }
 }
