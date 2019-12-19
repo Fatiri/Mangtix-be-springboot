@@ -1,10 +1,7 @@
 package com.enigma.services.impl;
 
 import com.enigma.constanta.MessageConstant;
-import com.enigma.entity.Category;
-import com.enigma.entity.Event;
-import com.enigma.entity.Ticket;
-import com.enigma.entity.TicketCode;
+import com.enigma.entity.*;
 import com.enigma.exception.ForbiddenException;
 import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.TicketRepository;
@@ -44,6 +41,12 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
                 code=ticket.getEvent().getId()+ticket.getId()+ticket.getCategory().getCategoryName()+i;
                 ticketCode.setTicketCode(code);
             }
+            if (ticketCode.getStatusTicketOut().equals(StatusTicketOut.ON_SALE)){
+                ticketCode.setAvailable(true);
+            }else {
+                ticketCode.setAvailable(false);
+            }
+            ticketCode.setArrived(false);
         }
         return ticketRepository.save(ticket);
     }
