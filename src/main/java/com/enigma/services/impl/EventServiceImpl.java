@@ -1,6 +1,10 @@
 package com.enigma.services.impl;
 
+import com.enigma.constanta.MessageConstant;
+import com.enigma.constanta.StringConstant;
 import com.enigma.entity.Event;
+import com.enigma.exception.BadRequestException;
+import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.EventRepository;
 import com.enigma.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +18,11 @@ public class EventServiceImpl implements EventService {
     private EventRepository eventRepository;
 
     @Override
-    public Event getEventId(String eventId) {
-        if (!eventRepository.findById(eventId).isPresent()) {
-            return new Event();
+    public Event getEventById(String id) {
+        if (!eventRepository.findById(id).isPresent()) {
+            throw new NotFoundException(String.format(MessageConstant.ID_EVENT_NOT_FOUND, id));
         }
-        return eventRepository.findById(eventId).get();
+        return eventRepository.findById(id).get();
     }
 
     @Override
@@ -27,12 +31,17 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void deleteEvent(String eventId) {
-        eventRepository.deleteById(eventId);
+    public void deleteEvent(String id) {
+        eventRepository.deleteById(id);
     }
 
     @Override
     public Event saveEvent(Event event) {
+//        if (eventRepository.existsEventByEventLocationLike(event.getEventLocation())) {
+//            if (eventRepository.existsEventByEventDateLike(event.getEventDate())) {
+//                throw new BadRequestException(MessageConstant.EVENT_LOCATION_AND_DATE_TIME_CANNOT_SAME);
+//            }
+//        }
         return eventRepository.save(event);
     }
 }

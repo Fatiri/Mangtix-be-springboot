@@ -6,9 +6,11 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
-@Entity(name = "mst_category")
+@Entity
+@Table(name = "mst_category")
 public class Category {
 
     @Id
@@ -17,7 +19,8 @@ public class Category {
     private String id;
     private String categoryName;
 
-
+    public Category() {
+    }
 
     public Category(String categoryName) {
         this.categoryName = categoryName;
