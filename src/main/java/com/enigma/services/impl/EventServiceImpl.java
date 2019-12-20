@@ -94,9 +94,9 @@ public class EventServiceImpl implements EventService {
             eventDetail.setEvent(event);
             Location location = locationService.getLocationById(eventDetail.getLocationIdTransient());
             eventDetail.setLocation(location);
-            Date iyak = eventDetail.getEventDate();
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-            String s = dateFormat.format(iyak);
+//            Date iyak = eventDetail.getEventDate();
+//            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+//            String s = dateFormat.format(iyak);
 //            if (eventDetailRepository.existsEventDetailByVenueLike(eventDetail.getVenue())) {
 //                throw new ForbiddenException("Gabisa Woi");
 //            }
