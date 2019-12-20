@@ -8,11 +8,9 @@ import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.TicketRepository;
 import com.enigma.services.CategoryService;
 import com.enigma.services.EventService;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.GeneratedValue;
 import java.util.*;
 
 @Service
@@ -75,6 +73,45 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
     @Override
     public void delete(String id) {
         ticketRepository.deleteById(id);
+    }
+
+    @Override
+    public Ticket updateTicketCode(Ticket ticket) {
+        Ticket ticket1 = getTicketById(ticket.getId());
+        List<TicketCode> ticketCodeOnSale = new ArrayList<>();
+        List<TicketCode> ticketCodeFree = new ArrayList<>();
+        if (ticket.getOnSaleTransient()!=0){
+            for (TicketCode ticketCode : ticket1.getTicketCodes()) {
+
+                if (ticketCode.getStatusTicketOut().equals(StatusTicketOut.WAITING)){
+                    ticketCode.setAvailable(true);
+                    ticketCode.setStatusTicketOut(StatusTicketOut.ON_SALE);
+                    ticketCodeOnSale.add(ticketCode);
+                }
+
+                if (ticketCodeOnSale.size()>=ticket.getOnSaleTransient()){
+                    break;
+                }
+
+            }
+        }
+        if (ticket.getFreeTransient()!=0){
+            for (TicketCode ticketCode : ticket1.getTicketCodes()) {
+
+                if (ticketCode.getStatusTicketOut().equals(StatusTicketOut.WAITING)){
+                    ticketCode.setAvailable(false);
+                    ticketCode.setStatusTicketOut(StatusTicketOut.FREE);
+                    ticketCodeFree.add(ticketCode);
+                }
+
+                if (ticketCodeFree.size()>=ticket.getOnSaleTransient()){
+                    break;
+                }
+
+            }
+        }
+
+        return ticketRepository.save(ticket);
     }
 
 }

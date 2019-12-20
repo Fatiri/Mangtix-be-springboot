@@ -13,4 +13,6 @@ public interface TicketService {
 
     void delete(String id);
 
+    Ticket updateTicketCode(Ticket ticket);
+
     }
