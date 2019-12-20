@@ -17,7 +17,7 @@ public class EventDetail {
     @GeneratedValue(generator = StringConstant.SYSTEM_UUID2)
     @GenericGenerator(name = StringConstant.SYSTEM_UUID2, strategy = StringConstant.UUID2)
     private String id;
-    private String locationName;
+    private String venue;
     private String description;
     private String eventDay;
     @JsonFormat(pattern = EventConstanta.EVENT_DATE_PATTERN)
@@ -33,7 +33,7 @@ public class EventDetail {
     private String locationIdTransient;
 
     public EventDetail(String locationName, String description, String eventDay, Date eventDate) {
-        this.locationName = locationName;
+        this.venue = locationName;
         this.description = description;
         this.eventDay = eventDay;
         this.eventDate = eventDate;
@@ -50,12 +50,12 @@ public class EventDetail {
         this.id = id;
     }
 
-    public String getLocationName() {
-        return locationName;
+    public String getVenue() {
+        return venue;
     }
 
-    public void setLocationName(String locationName) {
-        this.locationName = locationName;
+    public void setVenue(String venue) {
+        this.venue = venue;
     }
 
     public String getDescription() {
