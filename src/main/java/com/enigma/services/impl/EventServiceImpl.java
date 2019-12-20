@@ -24,9 +24,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 @Service
 public class EventServiceImpl implements EventService {
@@ -75,21 +72,16 @@ public class EventServiceImpl implements EventService {
         return eventRepository.findAll(pageable);
     }
 
-//    public EventDetail getEventDetailId(Date date) {
-//        Event event = new Event();
-//        EventDetail eventDetail = new EventDetail();
-//        for (eventDetail: event.getEventDetailList()) {
-//            eventDetailRepository.findById(eventDetail.getId());
-//        }
-//    }
-
     @Override
-    public Event saveEventWithImage(MultipartFile multipartFile, String eventId) throws JsonProcessingException {
+    public Event saveEventWithImage(MultipartFile multipartFile, MultipartFile multipartimage, String eventId) throws JsonProcessingException {
         Event event = saveEvent(objectMapper.readValue(eventId, Event.class));
         try {
             byte[] bytes = multipartFile.getBytes();
-            Path path = Paths.get(EventConstanta.FILE_DIRECTORY + event.getId());
+            byte[] image = multipartimage.getBytes();
+            Path path = Paths.get(EventConstanta.FILE_DIRECTORY + event.getId()+".pdf");
+            Path pathImage = Paths.get(EventConstanta.FILE_DIRECTORY + event.getId());
             Files.write(path, bytes);
+            Files.write(pathImage, image);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -99,11 +91,6 @@ public class EventServiceImpl implements EventService {
             eventDetail.setEvent(event);
             Location location = locationService.getLocationById(eventDetail.getLocationIdTransient());
             eventDetail.setLocation(location);
-//            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-//            String strDate = dateFormat.format(eventDetail.getEventDate());
-//            if (eventDetailRepository.existsEventDetailByVenueLike(eventDetail.getVenue())&&eventDetailRepository.existsEventDetailByEventDateLike(strDate)) {
-//                throw new ForbiddenException("Gabisa Woi");
-//            }
         }
         return eventRepository.save(event);
     }

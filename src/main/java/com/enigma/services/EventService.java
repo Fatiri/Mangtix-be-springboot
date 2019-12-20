@@ -14,7 +14,7 @@ public interface EventService {
     public List<Event> getEvents();
     public void deleteEvent(String eventId);
     public Event saveEvent(Event event);
-    public Event saveEventWithImage(MultipartFile multipartFile, String event) throws JsonProcessingException;
+    public Event saveEventWithImage(MultipartFile multipartFile,MultipartFile multipartImage, String event) throws JsonProcessingException;
     public Event updateEvent(Event event);
     public Page<Event> eventPagination(Pageable pageable);
 }
