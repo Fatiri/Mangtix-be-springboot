@@ -112,4 +112,17 @@ public class TicketCode {
     public int hashCode() {
         return Objects.hash(id, ticket, ticketCode, isArrived, statusTicketOut, isAvailable, ticketIdTransient);
     }
+
+    @Override
+    public String toString() {
+        return "TicketCode{" +
+                "id='" + id + '\'' +
+                ", ticket=" + ticket +
+                ", ticketCode='" + ticketCode + '\'' +
+                ", isArrived=" + isArrived +
+                ", statusTicketOut=" + statusTicketOut +
+                ", isAvailable=" + isAvailable +
+                ", ticketIdTransient='" + ticketIdTransient + '\'' +
+                '}';
+    }
 }

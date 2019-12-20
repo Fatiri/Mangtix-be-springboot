@@ -13,5 +13,4 @@ public interface TicketService {
 
     void delete(String id);
 
-
     }

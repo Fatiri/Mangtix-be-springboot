@@ -1,17 +1,17 @@
 package com.enigma.entity;
+import com.enigma.constanta.BookingConstant;
 import com.enigma.constanta.StringConstant;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = StringConstant.TRX_BOOKING)
+@Table(name = BookingConstant.TRX_BOOKING)
 public class Booking {
     @Id
     @GeneratedValue(generator = StringConstant.SYSTEM_UUID2)
@@ -19,10 +19,9 @@ public class Booking {
     private String id;
     @DateTimeFormat(pattern = StringConstant.DATE_TIME_FORMAT)
     private Date bookDate;
-    private BigDecimal totalPrice;
     private Boolean paymentStatus;
 
-    @OneToMany(mappedBy = StringConstant.BOOKING, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = BookingConstant.BOOKING, cascade = CascadeType.ALL)
     private List<BookingDetail> bookingDetailList = new ArrayList<>();
 
     @ManyToOne
@@ -34,9 +33,8 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(Date bookDate, BigDecimal totalPrice, Boolean paymentStatus) {
+    public Booking(Date bookDate, Boolean paymentStatus){
         this.bookDate = bookDate;
-        this.totalPrice = totalPrice;
         this.paymentStatus = paymentStatus;
     }
 
@@ -54,14 +52,6 @@ public class Booking {
 
     public void setBookDate(Date bookDate) {
         this.bookDate = bookDate;
-    }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
     }
 
     public Boolean getPaymentStatus() {
@@ -103,12 +93,14 @@ public class Booking {
         Booking booking = (Booking) o;
         return Objects.equals(id, booking.id) &&
                 Objects.equals(bookDate, booking.bookDate) &&
-                Objects.equals(totalPrice, booking.totalPrice) &&
-                Objects.equals(paymentStatus, booking.paymentStatus);
+                Objects.equals(paymentStatus, booking.paymentStatus) &&
+                Objects.equals(bookingDetailList, booking.bookingDetailList) &&
+                Objects.equals(user, booking.user) &&
+                Objects.equals(userIdTransient, booking.userIdTransient);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, bookDate, totalPrice, paymentStatus);
+        return Objects.hash(id, bookDate, paymentStatus, bookingDetailList, user, userIdTransient);
     }
 }

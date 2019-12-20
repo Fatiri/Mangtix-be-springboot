@@ -1,21 +1,27 @@
 package com.enigma.services.impl;
 
 import com.enigma.constanta.MessageConstant;
+import com.enigma.constanta.StringConstant;
 import com.enigma.entity.*;
 import com.enigma.exception.ForbiddenException;
 import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.TicketRepository;
 import com.enigma.services.CategoryService;
 import com.enigma.services.EventService;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.GeneratedValue;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 @Service
 public class TicketServiceImpl implements com.enigma.services.TicketService {
-
+    @GeneratedValue (generator = StringConstant.SYSTEM_UUID2)
+    @GenericGenerator(name = StringConstant.SYSTEM_UUID2, strategy = StringConstant.UUID2)
+    private String ticketCode;
     @Autowired
     TicketRepository ticketRepository;
     @Autowired
@@ -26,29 +32,35 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
     @Override
     public Ticket saveTicket(Ticket ticket) {
         Event event = eventService.getEventById(ticket.getEventIdTransient());
-        if (event.getPublishStatus() == false) {
+        if (!event.getPublishStatus()) {
             throw new ForbiddenException(MessageConstant.EVENT_HAS_NOT_VALIDATED);
         }
         ticket.setEvent(event);
         Category category = categoryService.getCategoryById(ticket.getCategoryIdTransient());
         ticket.setCategory(category);
         ticket.setCreateAt(Calendar.getInstance());
-        Integer quantity = ticket.getQuantity();
-        String code;
-        for (int i = 1; i <= quantity; i++) {
-            for (TicketCode ticketCode : ticket.getTicketCodes()) {
-                ticketCode.setTicket(ticket);
-                code = ticket.getEvent().getId() + ticket.getId() + ticket.getCategory().getCategoryName() + i;
-                ticketCode.setTicketCode(code);
-                if (ticketCode.getStatusTicketOut().equals(StatusTicketOut.ON_SALE)) {
-                    ticketCode.setAvailable(true);
-                } else {
-                    ticketCode.setAvailable(false);
-                }
-                ticketCode.setArrived(false);
-            }
-        }
+        List<TicketCode> ticketCodeList = generatedTicketCode(ticket);
+        ticket.setTicketCodes(ticketCodeList);
+
         return ticketRepository.save(ticket);
+    }
+
+    private List<TicketCode> generatedTicketCode(Ticket ticket) {
+        Integer sum;
+        String code;
+        List<TicketCode> ticketCodeList = new ArrayList<>();
+        for (int i = 0; i <ticket.getQuantity(); i++) {
+            sum = i;
+            TicketCode ticketCode = new TicketCode();
+            ticketCode.setTicket(ticket);
+            code = ticket.getEvent().getId() + ticketCode.getTicketIdTransient()+ ticket.getCategory().getCategoryName() + sum;
+            ticketCode.setTicketCode(code);
+            ticketCode.setStatusTicketOut(StatusTicketOut.WAITING);
+            ticketCode.setAvailable(false);
+            ticketCode.setArrived(false);
+            ticketCodeList.add(ticketCode);
+        }
+        return ticketCodeList;
     }
 
     @Override

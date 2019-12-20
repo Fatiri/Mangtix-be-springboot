@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EventDetailRepository extends JpaRepository<EventDetail,String> {
 
-    Boolean existsEventDetailByVenueLike(String venue);
-    Boolean existsEventDetailByEventDateLike(String eventDate);
+//    Boolean existsEventDetailByVenueLike(String venue);
+//    Boolean existsEventDetailByEventDateLike(String eventDate);
 }
