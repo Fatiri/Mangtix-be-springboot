@@ -4,6 +4,9 @@ import com.enigma.entity.Event;
 import com.enigma.services.EventService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,6 +35,11 @@ public class EventController {
     @PostMapping("/event")
     public Event updateEvent(@RequestPart MultipartFile multipartFile, @RequestPart String event) throws JsonProcessingException {
         return eventService.saveEventWithImage(multipartFile,event);
+    }
+    @GetMapping("/event-list")
+    public Page<Event> eventPagination (@RequestParam Integer page, @RequestParam Integer size) {
+        Pageable pageable = PageRequest.of(page,size);
+        return eventService.eventPagination(pageable);
     }
     @DeleteMapping("/event/{id}")
     public void deleteEvent(@PathVariable String id) {
