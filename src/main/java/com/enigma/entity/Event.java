@@ -22,7 +22,12 @@ public class Event {
     private String eventName;
     private String descriptionEvent;
     private Boolean publishStatus;
-    @JsonFormat(pattern = EventConstanta.EVENT_DATE_PATTERN)
+    @ManyToOne
+    @JoinColumn(name = EventConstanta.COMPANY_ID_RELATION)
+    private Company company;
+
+    @Transient
+    private String companyIdTransient;
 
     @OneToMany(mappedBy = EventConstanta.EVENT_MAPPED_BY, cascade = CascadeType.PERSIST)
     @JsonIgnore
@@ -85,5 +90,21 @@ public class Event {
 
     public void setEventDetailList(List<EventDetail> eventDetailList) {
         this.eventDetailList = eventDetailList;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public String getCompanyIdTransient() {
+        return companyIdTransient;
+    }
+
+    public void setCompanyIdTransient(String companyIdTransient) {
+        this.companyIdTransient = companyIdTransient;
     }
 }
