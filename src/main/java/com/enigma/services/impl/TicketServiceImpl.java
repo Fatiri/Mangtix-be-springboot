@@ -77,41 +77,48 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
 
     @Override
     public Ticket updateTicketCode(Ticket ticket) {
-        Ticket ticket1 = getTicketById(ticket.getId());
+        Ticket ticketObject = getTicketById(ticket.getId());
         List<TicketCode> ticketCodeOnSale = new ArrayList<>();
         List<TicketCode> ticketCodeFree = new ArrayList<>();
         if (ticket.getOnSaleTransient()!=0){
-            for (TicketCode ticketCode : ticket1.getTicketCodes()) {
-
-                if (ticketCode.getStatusTicketOut().equals(StatusTicketOut.WAITING)){
-                    ticketCode.setAvailable(true);
-                    ticketCode.setStatusTicketOut(StatusTicketOut.ON_SALE);
-                    ticketCodeOnSale.add(ticketCode);
-                }
-
-                if (ticketCodeOnSale.size()>=ticket.getOnSaleTransient()){
-                    break;
-                }
-
-            }
+            setStatusCodeOutOnsale(ticket, ticketObject, ticketCodeOnSale);
         }
         if (ticket.getFreeTransient()!=0){
-            for (TicketCode ticketCode : ticket1.getTicketCodes()) {
-
-                if (ticketCode.getStatusTicketOut().equals(StatusTicketOut.WAITING)){
-                    ticketCode.setAvailable(false);
-                    ticketCode.setStatusTicketOut(StatusTicketOut.FREE);
-                    ticketCodeFree.add(ticketCode);
-                }
-
-                if (ticketCodeFree.size()>=ticket.getOnSaleTransient()){
-                    break;
-                }
-
-            }
+            setStatusCodeOutFree(ticket, ticketObject, ticketCodeFree);
         }
 
         return ticketRepository.save(ticket);
+    }
+
+    private void setStatusCodeOutFree(Ticket ticket, Ticket ticketObject, List<TicketCode> ticketCodeFree) {
+        for (TicketCode ticketCode : ticketObject.getTicketCodes()) {
+
+            if (ticketCode.getStatusTicketOut().equals(StatusTicketOut.WAITING)){
+                ticketCode.setAvailable(false);
+                ticketCode.setStatusTicketOut(StatusTicketOut.FREE);
+                ticketCodeFree.add(ticketCode);
+            }
+
+            if (ticketCodeFree.size()>=ticket.getOnSaleTransient()){
+                break;
+            }
+        }
+    }
+
+    private void setStatusCodeOutOnsale(Ticket ticket, Ticket ticketObject, List<TicketCode> ticketCodeOnSale) {
+        for (TicketCode ticketCode : ticketObject.getTicketCodes()) {
+
+            if (ticketCode.getStatusTicketOut().equals(StatusTicketOut.WAITING)){
+                ticketCode.setAvailable(true);
+                ticketCode.setStatusTicketOut(StatusTicketOut.ON_SALE);
+                ticketCodeOnSale.add(ticketCode);
+            }
+
+            if (ticketCodeOnSale.size()>=ticket.getOnSaleTransient()){
+                break;
+            }
+
+        }
     }
 
 }
