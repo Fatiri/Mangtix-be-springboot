@@ -1,5 +1,6 @@
 package com.enigma.services.impl;
 
+import com.enigma.constanta.BookingConstant;
 import com.enigma.constanta.MessageConstant;
 import com.enigma.constanta.StringConstant;
 import com.enigma.entity.*;
@@ -81,7 +82,7 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
         List<TicketCode> ticketCodeOnSale = new ArrayList<>();
         List<TicketCode> ticketCodeFree = new ArrayList<>();
         if (ticket.getOnSaleTransient()!=0){
-            setStatusCodeOutOnsale(ticket, ticketObject, ticketCodeOnSale);
+            setStatusCodeOutOnSale(ticket, ticketObject, ticketCodeOnSale);
         }
         if (ticket.getFreeTransient()!=0){
             setStatusCodeOutFree(ticket, ticketObject, ticketCodeFree);
@@ -105,7 +106,7 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
         }
     }
 
-    private void setStatusCodeOutOnsale(Ticket ticket, Ticket ticketObject, List<TicketCode> ticketCodeOnSale) {
+    private void setStatusCodeOutOnSale(Ticket ticket, Ticket ticketObject, List<TicketCode> ticketCodeOnSale) {
         for (TicketCode ticketCode : ticketObject.getTicketCodes()) {
 
             if (ticketCode.getStatusTicketOut().equals(StatusTicketOut.WAITING)){
@@ -119,6 +120,27 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
             }
 
         }
+    }
+
+    public Ticket setAvailableAfterBooking(Ticket ticket, Integer quantity){
+        Ticket ticketObject = getTicketById(ticket.getId());
+        List<TicketCode> ticketCodeOnSale = new ArrayList<>();
+        for (TicketCode ticketCode : ticketObject.getTicketCodes()) {
+            if (ticketCode.getAvailable().equals(true)) {
+                ticketCode.setAvailable(false);
+                ticketCodeOnSale.add(ticketCode);
+            }
+
+            if (ticketCodeOnSale.size()>=quantity){
+                break;
+            }
+        }
+
+        if (ticketCodeOnSale.size()==0){
+            System.out.println(ticketCodeOnSale.size());
+            throw new ForbiddenException(BookingConstant.TICKET_NOT_AVAILABLE);
+        }
+        return ticketRepository.save(ticket);
     }
 
 }

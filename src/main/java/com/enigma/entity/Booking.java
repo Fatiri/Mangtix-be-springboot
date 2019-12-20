@@ -103,4 +103,16 @@ public class Booking {
     public int hashCode() {
         return Objects.hash(id, bookDate, paymentStatus, bookingDetailList, user, userIdTransient);
     }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id='" + id + '\'' +
+                ", bookDate=" + bookDate +
+                ", paymentStatus=" + paymentStatus +
+                ", bookingDetailList=" + bookingDetailList +
+                ", user=" + user +
+                ", userIdTransient='" + userIdTransient + '\'' +
+                '}';
+    }
 }
