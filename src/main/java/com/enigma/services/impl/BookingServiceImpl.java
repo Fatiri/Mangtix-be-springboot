@@ -36,18 +36,18 @@ public class BookingServiceImpl implements BookingService {
     public Booking booking(Booking booking) {
         User user = userService.getUserById(booking.getUserIdTransient());
         booking.setUser(user);
-        List<TicketCode> remainingTicketAvailable = new ArrayList<>();
-        Integer penampung =0;
+        List<TicketCode> listTicketAvailable = new ArrayList<>();
+        Integer sumTicketAvailable =0;
 
         for (BookingDetail bookingDetailList: booking.getBookingDetailList()) {
             Ticket ticket = ticketService.getTicketById(bookingDetailList.getTicketIdTransient());
             bookingDetailList.setTicket(ticket);
             for (TicketCode ticketCodeListOne: bookingDetailList.getTicket().getTicketCodes()) {
                 if (ticketCodeListOne.getAvailable()){
-                    remainingTicketAvailable.add(ticketCodeListOne);
-                    for (int i = 1; i <=remainingTicketAvailable.size() ; i++) {
-                        penampung = i;
-                        if (bookingDetailList.getQuantity()<=penampung){
+                    listTicketAvailable.add(ticketCodeListOne);
+                    for (int i = 1; i <=listTicketAvailable.size() ; i++) {
+                        sumTicketAvailable = i;
+                        if (bookingDetailList.getQuantity()<=sumTicketAvailable){
                             ticketCodeListOne.setAvailable(true);
                             bookingDetailList.setSubtotal(bookingDetailList.getTicket().getPrice().multiply(new BigDecimal(bookingDetailList.getQuantity())));
                         }
@@ -57,7 +57,7 @@ public class BookingServiceImpl implements BookingService {
             }
 
         }
-        System.out.println(penampung);
+        System.out.println(sumTicketAvailable);
         return bookingRepository.save(booking);
     }
 
