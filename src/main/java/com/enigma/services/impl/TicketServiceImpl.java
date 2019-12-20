@@ -13,15 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.GeneratedValue;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class TicketServiceImpl implements com.enigma.services.TicketService {
-    @GeneratedValue (generator = StringConstant.SYSTEM_UUID2)
-    @GenericGenerator(name = StringConstant.SYSTEM_UUID2, strategy = StringConstant.UUID2)
-    private String ticketCode;
     @Autowired
     TicketRepository ticketRepository;
     @Autowired
@@ -53,7 +48,8 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
             sum = i;
             TicketCode ticketCode = new TicketCode();
             ticketCode.setTicket(ticket);
-            code = ticket.getEvent().getId() + ticketCode.getTicketIdTransient()+ ticket.getCategory().getCategoryName() + sum;
+            String uuid = UUID.randomUUID().toString();
+            code = ticket.getCategory().getCategoryName()+sum+"-"+ ticket.getEvent().getId()+"-"+ uuid;
             ticketCode.setTicketCode(code);
             ticketCode.setStatusTicketOut(StatusTicketOut.WAITING);
             ticketCode.setAvailable(false);
