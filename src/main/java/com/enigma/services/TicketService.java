@@ -13,8 +13,7 @@ public interface TicketService {
 
     void delete(String id);
 
-    void deduct(String id, Integer quantity);
+    Ticket updateTicketCode(Ticket ticket);
 
-    void restoreQuantity(String id, Integer quantity);
-
+    Ticket setAvailableAfterBooking(Ticket ticket, Integer quantity);
     }

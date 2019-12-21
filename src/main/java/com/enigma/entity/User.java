@@ -150,6 +150,22 @@ public class User {
     public int hashCode() {
         return Objects.hash(id, userName, password, fullName, bornPlace, birthDate, createAt);
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", bornPlace='" + bornPlace + '\'' +
+                ", birthDate=" + birthDate +
+                ", createAt=" + createAt +
+                ", role=" + role +
+                ", roleIdTransient='" + roleIdTransient + '\'' +
+                ", bookingList=" + bookingList +
+                '}';
+    }
 }
 
 

@@ -19,9 +19,10 @@ public class TicketController {
         return ticketService.saveTicket(ticket);
     }
 
+
     @PutMapping("/ticket")
-    public Ticket updateTicket(@RequestBody Ticket ticket){
-        return ticketService.saveTicket(ticket);
+    public Ticket updateTicketCode(@RequestBody Ticket ticket) {
+        return ticketService.updateTicketCode(ticket);
     }
 
     @GetMapping("/ticket/{id}")
