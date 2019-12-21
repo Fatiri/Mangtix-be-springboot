@@ -10,7 +10,9 @@ import com.enigma.services.BookingService;
 import com.enigma.services.EventService;
 import com.enigma.services.TicketService;
 import com.enigma.services.UserService;
+import com.enigma.spesification.BookingSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -48,8 +50,8 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Page<Booking> getAllBookingData(Pageable pageable) {
-        return bookingRepository.findAll(pageable);
+    public Page<Booking> getAllBookingData(Example<Booking> bookingForm, Pageable pageable) {
+        return bookingRepository.findAll(bookingForm, pageable);
     }
 
     @Override
