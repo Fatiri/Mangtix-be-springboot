@@ -29,14 +29,14 @@ public class BookingController {
         return bookingService.getAllBookingData(bookingExample,pageable);
     }
 
-    @GetMapping("/booking/{bookingId}")
-    public Booking getBookingById(@PathVariable String bookingId){
+    @GetMapping("/booking")
+    public Booking getBookingById(@RequestBody String bookingId){
 
         return bookingService.getBookingById(bookingId);
     }
 
-    @DeleteMapping("/booking/{bookingId}")
-    public void deleteBookingById(@PathVariable String bookingId){
+    @DeleteMapping("/booking")
+    public void deleteBookingById(@RequestBody String bookingId){
         bookingService.deleteBookingDataById(bookingId);
     }
 }
