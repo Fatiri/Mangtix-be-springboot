@@ -1,18 +1,15 @@
 package com.enigma.services.impl;
 
 import com.enigma.constanta.MessageConstant;
-import com.enigma.constanta.StringConstant;
 import com.enigma.entity.*;
 import com.enigma.exception.ForbiddenException;
 import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.TicketRepository;
 import com.enigma.services.CategoryService;
 import com.enigma.services.EventService;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.GeneratedValue;
 import java.util.*;
 
 @Service
