@@ -36,28 +36,14 @@ public class BookingServiceImpl implements BookingService {
     public Booking booking(Booking booking) {
         User user = userService.getUserById(booking.getUserIdTransient());
         booking.setUser(user);
-        List<TicketCode> listTicketAvailable = new ArrayList<>();
-        Integer sumTicketAvailable =0;
-
+        booking.setBookingDetailList(booking.getBookingDetailList());
         for (BookingDetail bookingDetailList: booking.getBookingDetailList()) {
+            bookingDetailList.setBooking(booking);
             Ticket ticket = ticketService.getTicketById(bookingDetailList.getTicketIdTransient());
             bookingDetailList.setTicket(ticket);
-            for (TicketCode ticketCodeListOne: bookingDetailList.getTicket().getTicketCodes()) {
-                if (ticketCodeListOne.getAvailable()){
-                    listTicketAvailable.add(ticketCodeListOne);
-                    for (int i = 1; i <=listTicketAvailable.size() ; i++) {
-                        sumTicketAvailable = i;
-                        if (bookingDetailList.getQuantity()<=sumTicketAvailable){
-                            ticketCodeListOne.setAvailable(true);
-                            bookingDetailList.setSubtotal(bookingDetailList.getTicket().getPrice().multiply(new BigDecimal(bookingDetailList.getQuantity())));
-                        }
-                    }
-                }
-                throw new ForbiddenException(BookingConstant.TICKET_NOT_AVAILABLE);
-            }
-
+            bookingDetailList.setSubtotal(bookingDetailList.getTicket().getPrice().multiply(new BigDecimal(bookingDetailList.getQuantity())));
+            ticketService.setAvailableAfterBooking(ticket, bookingDetailList.getQuantity());
         }
-        System.out.println(sumTicketAvailable);
         return bookingRepository.save(booking);
     }
 

@@ -13,4 +13,7 @@ public interface TicketService {
 
     void delete(String id);
 
+    Ticket updateTicketCode(Ticket ticket);
+
+    Ticket setAvailableAfterBooking(Ticket ticket, Integer quantity);
     }

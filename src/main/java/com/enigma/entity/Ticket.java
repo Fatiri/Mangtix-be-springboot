@@ -41,6 +41,13 @@ public class Ticket {
 
     @OneToMany(mappedBy = TicketConstant.TICKET, cascade = CascadeType.PERSIST)
     private List<TicketCode> ticketCodes;
+
+    @Transient
+    private Integer onSaleTransient;
+
+    @Transient
+    private Integer freeTransient;
+
     public Ticket() {
     }
 
@@ -132,6 +139,22 @@ public class Ticket {
         this.ticketCodes = ticketCodes;
     }
 
+    public Integer getOnSaleTransient() {
+        return onSaleTransient;
+    }
+
+    public void setOnSaleTransient(Integer onSaleTransient) {
+        this.onSaleTransient = onSaleTransient;
+    }
+
+    public Integer getFreeTransient() {
+        return freeTransient;
+    }
+
+    public void setFreeTransient(Integer freeTransient) {
+        this.freeTransient = freeTransient;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -146,12 +169,14 @@ public class Ticket {
                 Objects.equals(categoryIdTransient, ticket.categoryIdTransient) &&
                 Objects.equals(eventIdTransient, ticket.eventIdTransient) &&
                 Objects.equals(bookingDetails, ticket.bookingDetails) &&
-                Objects.equals(ticketCodes, ticket.ticketCodes);
+                Objects.equals(ticketCodes, ticket.ticketCodes) &&
+                Objects.equals(onSaleTransient, ticket.onSaleTransient) &&
+                Objects.equals(freeTransient, ticket.freeTransient);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, category, event, price, quantity, createAt, categoryIdTransient, eventIdTransient, bookingDetails, ticketCodes);
+        return Objects.hash(id, category, event, price, quantity, createAt, categoryIdTransient, eventIdTransient, bookingDetails, ticketCodes, onSaleTransient, freeTransient);
     }
 
     @Override
@@ -167,6 +192,8 @@ public class Ticket {
                 ", eventIdTransient='" + eventIdTransient + '\'' +
                 ", bookingDetails=" + bookingDetails +
                 ", ticketCodes=" + ticketCodes +
+                ", onSaleTransient=" + onSaleTransient +
+                ", freeTransient=" + freeTransient +
                 '}';
     }
 }
