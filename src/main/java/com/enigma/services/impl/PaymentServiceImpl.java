@@ -3,6 +3,7 @@ package com.enigma.services.impl;
 import com.enigma.constanta.MessageConstant;
 import com.enigma.constanta.StringConstant;
 import com.enigma.entity.Booking;
+import com.enigma.entity.BookingDetail;
 import com.enigma.entity.Payment;
 import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.PaymentRepository;
@@ -31,10 +32,15 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Payment savePayment(Payment payment) {
-//        Booking booking = bookingService.getBookingById(payment.getBookingIdTransient());
-//        payment.setBooking(booking);
-//        payment.setTotalPayment(booking.getTotalPrice());
-//        booking.setPaymentStatus(true);
+        Booking booking = bookingService.getBookingById(payment.getBookingIdTransient());
+        payment.setBooking(booking);
+        BigDecimal totalPrice = new BigDecimal(0);
+        for (BookingDetail bookingDetail: booking.getBookingDetailList()) {
+            totalPrice = totalPrice.add(bookingDetail.getSubtotal());
+        }
+        System.out.println(totalPrice);
+        payment.setTotalPayment(totalPrice);
+        booking.setPaymentStatus(true);
         return paymentRepository.save(payment);
     }
 
