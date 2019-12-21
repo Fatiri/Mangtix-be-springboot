@@ -99,4 +99,16 @@ public class BookingDetail {
     public int hashCode() {
         return Objects.hash(id, quantity, subtotal);
     }
+
+    @Override
+    public String toString() {
+        return "BookingDetail{" +
+                "id='" + id + '\'' +
+                ", quantity=" + quantity +
+                ", subtotal=" + subtotal +
+                ", booking=" + booking +
+                ", ticket=" + ticket +
+                ", ticketIdTransient='" + ticketIdTransient + '\'' +
+                '}';
+    }
 }

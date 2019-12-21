@@ -45,6 +45,7 @@ public class Ticket {
 
     @OneToMany(mappedBy = TicketConstant.TICKET, cascade = CascadeType.PERSIST)
     private List<TicketCode> ticketCodes;
+
     public Ticket() {
     }
 
@@ -168,7 +169,9 @@ public class Ticket {
                 Objects.equals(onSaleTransient, ticket.onSaleTransient) &&
                 Objects.equals(freeTransient, ticket.freeTransient) &&
                 Objects.equals(bookingDetails, ticket.bookingDetails) &&
-                Objects.equals(ticketCodes, ticket.ticketCodes);
+                Objects.equals(ticketCodes, ticket.ticketCodes) &&
+                Objects.equals(onSaleTransient, ticket.onSaleTransient) &&
+                Objects.equals(freeTransient, ticket.freeTransient);
     }
 
     @Override
@@ -189,6 +192,8 @@ public class Ticket {
                 ", eventIdTransient='" + eventIdTransient + '\'' +
                 ", bookingDetails=" + bookingDetails +
                 ", ticketCodes=" + ticketCodes +
+                ", onSaleTransient=" + onSaleTransient +
+                ", freeTransient=" + freeTransient +
                 '}';
     }
 }

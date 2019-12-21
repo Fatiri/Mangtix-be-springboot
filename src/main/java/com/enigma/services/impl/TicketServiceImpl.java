@@ -1,5 +1,6 @@
 package com.enigma.services.impl;
 
+import com.enigma.constanta.BookingConstant;
 import com.enigma.constanta.MessageConstant;
 import com.enigma.entity.*;
 import com.enigma.exception.ForbiddenException;
@@ -72,6 +73,73 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
     @Override
     public void delete(String id) {
         ticketRepository.deleteById(id);
+    }
+
+    @Override
+    public Ticket updateTicketCode(Ticket ticket) {
+        Ticket ticketObject = getTicketById(ticket.getId());
+        List<TicketCode> ticketCodeOnSale = new ArrayList<>();
+        List<TicketCode> ticketCodeFree = new ArrayList<>();
+        if (ticket.getOnSaleTransient()!=0){
+            setStatusCodeOutOnSale(ticket, ticketObject, ticketCodeOnSale);
+        }
+        if (ticket.getFreeTransient()!=0){
+            setStatusCodeOutFree(ticket, ticketObject, ticketCodeFree);
+        }
+
+        return ticketRepository.save(ticket);
+    }
+
+    private void setStatusCodeOutFree(Ticket ticket, Ticket ticketObject, List<TicketCode> ticketCodeFree) {
+        for (TicketCode ticketCode : ticketObject.getTicketCodes()) {
+
+            if (ticketCode.getStatusTicketOut().equals(StatusTicketOut.WAITING)){
+                ticketCode.setAvailable(false);
+                ticketCode.setStatusTicketOut(StatusTicketOut.FREE);
+                ticketCodeFree.add(ticketCode);
+            }
+
+            if (ticketCodeFree.size()>=ticket.getOnSaleTransient()){
+                break;
+            }
+        }
+    }
+
+    private void setStatusCodeOutOnSale(Ticket ticket, Ticket ticketObject, List<TicketCode> ticketCodeOnSale) {
+        for (TicketCode ticketCode : ticketObject.getTicketCodes()) {
+
+            if (ticketCode.getStatusTicketOut().equals(StatusTicketOut.WAITING)){
+                ticketCode.setAvailable(true);
+                ticketCode.setStatusTicketOut(StatusTicketOut.ON_SALE);
+                ticketCodeOnSale.add(ticketCode);
+            }
+
+            if (ticketCodeOnSale.size()>=ticket.getOnSaleTransient()){
+                break;
+            }
+
+        }
+    }
+
+    public Ticket setAvailableAfterBooking(Ticket ticket, Integer quantity){
+        Ticket ticketObject = getTicketById(ticket.getId());
+        List<TicketCode> ticketCodeOnSale = new ArrayList<>();
+        for (TicketCode ticketCode : ticketObject.getTicketCodes()) {
+            if (ticketCode.getAvailable().equals(true)) {
+                ticketCode.setAvailable(false);
+                ticketCodeOnSale.add(ticketCode);
+            }
+
+            if (ticketCodeOnSale.size()>=quantity){
+                break;
+            }
+        }
+
+        if (ticketCodeOnSale.size()==0){
+            System.out.println(ticketCodeOnSale.size());
+            throw new ForbiddenException(BookingConstant.TICKET_NOT_AVAILABLE);
+        }
+        return ticketRepository.save(ticket);
     }
 
 }
