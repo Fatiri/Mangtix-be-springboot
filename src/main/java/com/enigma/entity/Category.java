@@ -1,13 +1,15 @@
 package com.enigma.entity;
 
+import com.enigma.constanta.CategoryConstant;
 import com.enigma.constanta.StringConstant;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
-@Table(name = "mst_category")
+@Table(name = CategoryConstant.MST_CATEGORY)
 public class Category {
 
     @Id
@@ -15,6 +17,7 @@ public class Category {
     @GenericGenerator(name = StringConstant.SYSTEM_UUID2, strategy = StringConstant.UUID2)
     private String id;
     @Column(unique = true)
+    @NotNull(message = CategoryConstant.MESSAGE_NOT_NULL)
     private String categoryName;
 
     public Category() {
