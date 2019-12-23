@@ -94,4 +94,9 @@ public class EventServiceImpl implements EventService {
         }
         return eventRepository.save(event);
     }
+    @Override
+    public List<Event> getEventByCompany(Company company){
+        companyService.getCompanyById(company.getId());
+        return getEvents();
+    }
 }
