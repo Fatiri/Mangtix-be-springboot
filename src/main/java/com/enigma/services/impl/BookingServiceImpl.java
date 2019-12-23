@@ -1,25 +1,19 @@
 package com.enigma.services.impl;
 
-import com.enigma.constanta.BookingConstant;
 import com.enigma.constanta.MessageConstant;
 import com.enigma.entity.*;
-import com.enigma.exception.ForbiddenException;
 import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.BookingRepository;
 import com.enigma.services.BookingService;
 import com.enigma.services.EventService;
 import com.enigma.services.TicketService;
 import com.enigma.services.UserService;
-import com.enigma.spesification.BookingSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -41,6 +35,7 @@ public class BookingServiceImpl implements BookingService {
         booking.setBookingDetailList(booking.getBookingDetailList());
         for (BookingDetail bookingDetailList: booking.getBookingDetailList()) {
             bookingDetailList.setBooking(booking);
+
             Ticket ticket = ticketService.getTicketById(bookingDetailList.getTicketIdTransient());
             bookingDetailList.setTicket(ticket);
             bookingDetailList.setSubtotal(bookingDetailList.getTicket().getPrice().multiply(new BigDecimal(bookingDetailList.getQuantity())));
