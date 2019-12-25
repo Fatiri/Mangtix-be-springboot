@@ -31,7 +31,6 @@ public class BookingController {
 
     @GetMapping("/booking")
     public Booking getBookingById(@RequestBody String bookingId){
-
         return bookingService.getBookingById(bookingId);
     }
 
