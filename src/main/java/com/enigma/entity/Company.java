@@ -21,15 +21,12 @@ public class Company {
     @OneToMany(mappedBy = StringConstant.COMPANY, cascade = CascadeType.PERSIST)
     private List<CompanyUser> companyUsers = new ArrayList<>();
 
-    @Transient
-    private String companyIdTransient;
-
     public Company(){
     }
 
-    public Company(String companyName, String companyIdTransient) {
+    public Company(String companyName) {
         this.companyName = companyName;
-        this.companyIdTransient = companyIdTransient;
+
     }
 
     public String getId() {
@@ -56,13 +53,6 @@ public class Company {
         this.companyUsers = companyUsers;
     }
 
-    public String getCompanyIdTransient() {
-        return companyIdTransient;
-    }
-
-    public void setCompanyIdTransient(String companyIdTransient) {
-        this.companyIdTransient = companyIdTransient;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -71,12 +61,11 @@ public class Company {
         Company company = (Company) o;
         return Objects.equals(id, company.id) &&
                 Objects.equals(companyName, company.companyName) &&
-                Objects.equals(companyUsers, company.companyUsers) &&
-                Objects.equals(companyIdTransient, company.companyIdTransient);
+                Objects.equals(companyUsers, company.companyUsers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, companyName, companyUsers, companyIdTransient);
+        return Objects.hash(id, companyName, companyUsers);
     }
 }
