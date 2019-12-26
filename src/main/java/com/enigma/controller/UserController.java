@@ -35,6 +35,7 @@ public class UserController {
     @Autowired
     JwtUtil jwtUtil;
     @CrossOrigin
+    @PermitAll
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> login(@RequestBody User user) throws Exception{
         try {
@@ -66,6 +67,8 @@ public class UserController {
         return userService.saveUser(user);
     }
 
+    @CrossOrigin
+    @PermitAll
     @GetMapping("/user")
     public User getUserById(@RequestBody String userId){
         return userService.getUserById(userId);
@@ -76,7 +79,7 @@ public class UserController {
     public List<User> getAllUser(){
         return userService.getAllUser();
     }
-
+    @RolesAllowed("ADMIN")
     @DeleteMapping("/user/{userId}")
     public void deleteUserById(@PathVariable String userId){
         userService.deleteUserById(userId);
