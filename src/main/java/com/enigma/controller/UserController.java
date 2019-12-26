@@ -59,7 +59,7 @@ public class UserController {
         final  String jwt = jwtUtil.generateToken(userEntity.getId(), userEntity.getRole().getRoleName(), companyId);
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
-
+    @CrossOrigin
     @PermitAll
     @PostMapping("/user")
     public User saveUser(@RequestBody User user){

@@ -17,6 +17,7 @@ public class CategoryServiceImpl implements com.enigma.services.CategoryService 
 
     @Override
     public Category saveCategory(Category category){
+        category.setCategoryName(category.getCategoryName().toUpperCase());
         return categoryRepository.save(category);
     }
 

@@ -24,6 +24,7 @@ public class CategoryController {
     public Category getCategoryById(@PathVariable String id){
         return categoryService.getCategoryById(id);
     }
+
     @CrossOrigin
     @GetMapping("/categories")
     public List<Category> getAllCategory(){

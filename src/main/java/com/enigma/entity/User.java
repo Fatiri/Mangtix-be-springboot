@@ -1,5 +1,6 @@
 package com.enigma.entity;
 
+import com.enigma.constanta.EventConstanta;
 import com.enigma.constanta.StringConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,7 +27,13 @@ public class User {
     @DateTimeFormat(pattern = StringConstant.DATE_TIME_FORMAT)
     private Date birthDate;
     @DateTimeFormat(pattern = StringConstant.DATE_TIME_FORMAT)
-    private Date createAt;
+    private Date createAt = new Date();
+
+    @ManyToOne
+    @JoinColumn(name = EventConstanta.LOCATION_ID_RELATION)
+    private Location location;
+    @Transient
+    private String locationIdTransient;
 
     @ManyToOne
     @JoinColumn(name = StringConstant.ROLE_ID)
@@ -130,6 +137,22 @@ public class User {
 
     public void setBookingList(List<Booking> bookingList) {
         this.bookingList = bookingList;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public String getLocationIdTransient() {
+        return locationIdTransient;
+    }
+
+    public void setLocationIdTransient(String locationIdTransient) {
+        this.locationIdTransient = locationIdTransient;
     }
 
     @Override
