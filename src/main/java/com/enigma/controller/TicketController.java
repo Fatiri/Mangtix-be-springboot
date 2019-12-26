@@ -19,12 +19,13 @@ public class TicketController {
         return ticketService.saveTicket(ticket);
     }
 
-
+    @CrossOrigin
     @PutMapping("/ticket")
     public Ticket updateTicketCode(@RequestBody Ticket ticket) {
         return ticketService.updateTicketCode(ticket);
     }
 
+    @CrossOrigin
     @GetMapping("/ticket/{id}")
     public Ticket getTicketById(@PathVariable String id) {
         return ticketService.getTicketById(id);
