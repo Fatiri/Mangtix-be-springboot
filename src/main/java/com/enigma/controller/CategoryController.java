@@ -13,21 +13,24 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
+    @CrossOrigin
     @PostMapping("/category")
     public Category saveCategory(@RequestBody Category category){
         return categoryService.saveCategory(category);
     }
 
+    @CrossOrigin
     @GetMapping("/category/{id}")
     public Category getCategoryById(@PathVariable String id){
         return categoryService.getCategoryById(id);
     }
-
+    @CrossOrigin
     @GetMapping("/categories")
     public List<Category> getAllCategory(){
         return categoryService.getAllCategory();
     }
 
+    @CrossOrigin
     @DeleteMapping("/category/{id}")
     public void deleteById(@PathVariable String id){
         categoryService.delete(id);
