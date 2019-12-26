@@ -35,9 +35,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(String userId) {
-//        if (!userRepository.findById(userId).isPresent()){
-//            throw new NotFoundException(String.format(MessageConstant.ID_USER_NOT_FOUND, userId));
-//        }
+        if (!userRepository.findById(userId).isPresent()){
+            throw new NotFoundException(String.format(MessageConstant.ID_USER_NOT_FOUND, userId));
+        }
         return userRepository.findById(userId).get();
     }
 
