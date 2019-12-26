@@ -34,6 +34,10 @@ public class Ticket {
     private String categoryIdTransient;
     @Transient
     private String eventIdTransient;
+    @Transient
+    private Integer onSaleTransient;
+    @Transient
+    private Integer freeTransient;
 
     @OneToMany(mappedBy = TicketConstant.TICKET, cascade = CascadeType.PERSIST)
     @JsonIgnore
@@ -41,12 +45,6 @@ public class Ticket {
 
     @OneToMany(mappedBy = TicketConstant.TICKET, cascade = CascadeType.PERSIST)
     private List<TicketCode> ticketCodes;
-
-    @Transient
-    private Integer onSaleTransient;
-
-    @Transient
-    private Integer freeTransient;
 
     public Ticket() {
     }
@@ -168,6 +166,8 @@ public class Ticket {
                 Objects.equals(createAt, ticket.createAt) &&
                 Objects.equals(categoryIdTransient, ticket.categoryIdTransient) &&
                 Objects.equals(eventIdTransient, ticket.eventIdTransient) &&
+                Objects.equals(onSaleTransient, ticket.onSaleTransient) &&
+                Objects.equals(freeTransient, ticket.freeTransient) &&
                 Objects.equals(bookingDetails, ticket.bookingDetails) &&
                 Objects.equals(ticketCodes, ticket.ticketCodes) &&
                 Objects.equals(onSaleTransient, ticket.onSaleTransient) &&
@@ -176,7 +176,7 @@ public class Ticket {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, category, event, price, quantity, createAt, categoryIdTransient, eventIdTransient, bookingDetails, ticketCodes, onSaleTransient, freeTransient);
+        return Objects.hash(id, category, event, price, quantity, createAt, categoryIdTransient, eventIdTransient, onSaleTransient, freeTransient, bookingDetails, ticketCodes);
     }
 
     @Override
