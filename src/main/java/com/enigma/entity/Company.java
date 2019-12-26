@@ -21,12 +21,12 @@ public class Company {
     @OneToMany(mappedBy = StringConstant.COMPANY, cascade = CascadeType.PERSIST)
     private List<CompanyUser> companyUsers = new ArrayList<>();
 
-
     public Company(){
     }
 
     public Company(String companyName) {
         this.companyName = companyName;
+
     }
 
     public String getId() {
@@ -52,6 +52,7 @@ public class Company {
     public void setCompanyUsers(List<CompanyUser> companyUsers) {
         this.companyUsers = companyUsers;
     }
+
 
     @Override
     public boolean equals(Object o) {

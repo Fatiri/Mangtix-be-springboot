@@ -7,6 +7,7 @@ import com.enigma.entity.CompanyUser;
 import com.enigma.entity.User;
 import com.enigma.exception.NotFoundException;
 import com.enigma.repositories.CompanyRepository;
+import com.enigma.repositories.CompanyUserRepository;
 import com.enigma.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ public class CompanyServiceImpl implements com.enigma.services.CompanyService{
 
     @Autowired
     UserService userService;
+    @Autowired
+    CompanyUserRepository companyUserRepository;
 
     @Override
     public Company saveCompany(Company company) {
@@ -47,5 +50,11 @@ public class CompanyServiceImpl implements com.enigma.services.CompanyService{
     @Override
     public void delete(String id) {
     companyRepository.deleteById(id);
+    }
+    @Override
+    public CompanyUser getCompanyByUser(String id){
+        User user = userService.getUserById(id);
+
+        return companyUserRepository.findCompanyUserByUser(user);
     }
 }

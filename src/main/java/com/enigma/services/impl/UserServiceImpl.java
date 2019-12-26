@@ -9,6 +9,7 @@ import com.enigma.repositories.UserRepository;
 import com.enigma.services.RoleService;
 import com.enigma.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,6 +47,11 @@ public class UserServiceImpl implements UserService {
             throw new NotFoundException(String.format(MessageConstant.ID_USER_NOT_FOUND, userId));
         }
         userRepository.deleteById(userId);
+    }
+
+    @Override
+    public User  findByUserName(String userName) {
+        return userRepository.findByUserName(userName);
     }
 
 }
