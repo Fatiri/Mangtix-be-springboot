@@ -29,9 +29,7 @@ public class Event {
     @Transient
     private String companyIdTransient;
 
-    @OneToMany(mappedBy = EventConstanta.EVENT_MAPPED_BY, cascade = CascadeType.PERSIST)
-    @JsonIgnore
-    private List<Ticket> tickets;
+
 
     @OneToMany(mappedBy = EventConstanta.EVENT_MAPPED_BY, cascade = CascadeType.ALL)
     private List<EventDetail> eventDetailList;
@@ -76,13 +74,6 @@ public class Event {
         this.descriptionEvent = descriptionEvent;
     }
 
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
-    }
 
     public List<EventDetail> getEventDetailList() {
         return eventDetailList;

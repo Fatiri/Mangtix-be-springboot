@@ -24,11 +24,11 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
 
     @Override
     public Ticket saveTicket(Ticket ticket) {
-        Event event = eventService.getEventById(ticket.getEventIdTransient());
-        if (!event.getPublishStatus()) {
+        EventDetail eventDetail = eventService.getEventDetailById(ticket.getEventDetailIdTransient());
+        if (!eventDetail.getEvent().getPublishStatus()) {
             throw new ForbiddenException(MessageConstant.EVENT_HAS_NOT_VALIDATED);
         }
-        ticket.setEvent(event);
+        ticket.setEventDetail(eventDetail);
         Category category = categoryService.getCategoryById(ticket.getCategoryIdTransient());
         ticket.setCategory(category);
         ticket.setCreateAt(Calendar.getInstance());
@@ -47,7 +47,7 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
             TicketCode ticketCode = new TicketCode();
             ticketCode.setTicket(ticket);
             String uuid = UUID.randomUUID().toString();
-            code = ticket.getCategory().getCategoryName()+sum+"-"+ ticket.getEvent().getId()+"-"+ uuid;
+            code = ticket.getCategory().getCategoryName()+sum+"-"+ ticket.getEventDetail().getId()+"-"+ uuid;
             ticketCode.setTicketCode(code);
             ticketCode.setStatusTicketOut(StatusTicketOut.WAITING);
             ticketCode.setAvailable(false);

@@ -2,6 +2,7 @@ package com.enigma.controller;
 
 import com.enigma.entity.Company;
 import com.enigma.entity.Event;
+import com.enigma.entity.EventDetail;
 import com.enigma.services.EventService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +59,12 @@ public class EventController {
 
     @CrossOrigin
     @GetMapping("/event-company")
-    public List<Event> getEventByCompany(@RequestBody Company company){
-        return eventService.getEventByCompany(company);
+    public List<Event> getEventByCompany(@RequestParam String companyId){
+        return eventService.getEventByCompany(companyId);
+    }
+    @CrossOrigin
+    @GetMapping("/event-detail/{id}")
+    public EventDetail getEventDetailById(@PathVariable String id) throws Throwable {
+        return eventService.getEventDetailById(id);
     }
 }
