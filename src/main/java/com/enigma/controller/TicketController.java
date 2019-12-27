@@ -31,11 +31,13 @@ public class TicketController {
         return ticketService.getTicketById(id);
     }
 
+    @CrossOrigin
     @GetMapping("/tickets")
     public List<Ticket> getAllTicket(){
         return ticketService.getAllTicket();
     }
 
+    @CrossOrigin
     @DeleteMapping("/ticket/{id}")
     public void deleteTicketById(@PathVariable String id){
         ticketService.delete(id);
