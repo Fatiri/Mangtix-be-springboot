@@ -34,8 +34,8 @@ public class UserController {
     UserPrincipalDetailsService userPrincipalDetailsService;
     @Autowired
     JwtUtil jwtUtil;
+
     @CrossOrigin
-    @PermitAll
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> login(@RequestBody User user) throws Exception{
         try {
@@ -60,6 +60,7 @@ public class UserController {
         final  String jwt = jwtUtil.generateToken(userEntity.getId(), userEntity.getRole().getRoleName(), companyId);
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
+
     @CrossOrigin
     @PermitAll
     @PostMapping("/user")
@@ -73,12 +74,14 @@ public class UserController {
     public User getUserById(@RequestBody String userId){
         return userService.getUserById(userId);
     }
+
     @CrossOrigin
     @RolesAllowed("ADMIN")
     @GetMapping("/users")
     public List<User> getAllUser(){
         return userService.getAllUser();
     }
+
     @RolesAllowed("ADMIN")
     @DeleteMapping("/user/{userId}")
     public void deleteUserById(@PathVariable String userId){
