@@ -30,6 +30,7 @@ public class CategoryController {
     public List<Category> getAllCategory(){
         return categoryService.getAllCategory();
     }
+
     @CrossOrigin
     @DeleteMapping("/category/{id}")
     public void deleteById(@PathVariable String id){
