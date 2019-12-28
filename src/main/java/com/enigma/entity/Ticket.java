@@ -24,8 +24,8 @@ public class Ticket {
     @JoinColumn(name = TicketConstant.CATEGORY_ID)
     private Category category;
     @ManyToOne
-    @JoinColumn(name = TicketConstant.EVENT_ID)
-    private Event event;
+    @JoinColumn(name = TicketConstant.EVENT_DETAIL_ID)
+    private EventDetail eventDetail;
     private BigDecimal price;
     private Integer quantity;
     @DateTimeFormat(pattern = StringConstant.DATE_TIME_FORMAT)
@@ -33,7 +33,7 @@ public class Ticket {
     @Transient
     private String categoryIdTransient;
     @Transient
-    private String eventIdTransient;
+    private String eventDetailIdTransient;
     @Transient
     private Integer onSaleTransient;
     @Transient
@@ -49,12 +49,12 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(BigDecimal price, Integer quantity, Calendar createAt, String categoryIdTransient, String eventIdTransient) {
+    public Ticket(BigDecimal price, Integer quantity, Calendar createAt, String categoryIdTransient, String eventDetailIdTransient) {
         this.price = price;
         this.quantity = quantity;
         this.createAt = createAt;
         this.categoryIdTransient = categoryIdTransient;
-        this.eventIdTransient = eventIdTransient;
+        this.eventDetailIdTransient = eventDetailIdTransient;
     }
 
     public String getId() {
@@ -73,12 +73,12 @@ public class Ticket {
         this.category = category;
     }
 
-    public Event getEvent() {
-        return event;
+    public EventDetail getEventDetail() {
+        return eventDetail;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public void setEventDetail(EventDetail eventDetail) {
+        this.eventDetail = eventDetail;
     }
 
     public BigDecimal getPrice() {
@@ -113,12 +113,12 @@ public class Ticket {
         this.categoryIdTransient = categoryIdTransient;
     }
 
-    public String getEventIdTransient() {
-        return eventIdTransient;
+    public String getEventDetailIdTransient() {
+        return eventDetailIdTransient;
     }
 
-    public void setEventIdTransient(String eventIdTransient) {
-        this.eventIdTransient = eventIdTransient;
+    public void setEventDetailIdTransient(String eventDetailIdTransient) {
+        this.eventDetailIdTransient = eventDetailIdTransient;
     }
 
     public List<BookingDetail> getBookingDetails() {
@@ -160,12 +160,12 @@ public class Ticket {
         Ticket ticket = (Ticket) o;
         return Objects.equals(id, ticket.id) &&
                 Objects.equals(category, ticket.category) &&
-                Objects.equals(event, ticket.event) &&
+                Objects.equals(eventDetail, ticket.eventDetail) &&
                 Objects.equals(price, ticket.price) &&
                 Objects.equals(quantity, ticket.quantity) &&
                 Objects.equals(createAt, ticket.createAt) &&
                 Objects.equals(categoryIdTransient, ticket.categoryIdTransient) &&
-                Objects.equals(eventIdTransient, ticket.eventIdTransient) &&
+                Objects.equals(eventDetailIdTransient, ticket.eventDetailIdTransient) &&
                 Objects.equals(onSaleTransient, ticket.onSaleTransient) &&
                 Objects.equals(freeTransient, ticket.freeTransient) &&
                 Objects.equals(bookingDetails, ticket.bookingDetails) &&
@@ -176,7 +176,7 @@ public class Ticket {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, category, event, price, quantity, createAt, categoryIdTransient, eventIdTransient, onSaleTransient, freeTransient, bookingDetails, ticketCodes);
+        return Objects.hash(id, category, eventDetail, price, quantity, createAt, categoryIdTransient, eventDetailIdTransient, onSaleTransient, freeTransient, bookingDetails, ticketCodes);
     }
 
     @Override
@@ -184,12 +184,12 @@ public class Ticket {
         return "Ticket{" +
                 "id='" + id + '\'' +
                 ", category=" + category +
-                ", event=" + event +
+                ", event=" + eventDetail +
                 ", price=" + price +
                 ", quantity=" + quantity +
                 ", createAt=" + createAt +
                 ", categoryIdTransient='" + categoryIdTransient + '\'' +
-                ", eventIdTransient='" + eventIdTransient + '\'' +
+                ", eventIdTransient='" + eventDetailIdTransient + '\'' +
                 ", bookingDetails=" + bookingDetails +
                 ", ticketCodes=" + ticketCodes +
                 ", onSaleTransient=" + onSaleTransient +

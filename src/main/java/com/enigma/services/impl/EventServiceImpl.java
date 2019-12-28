@@ -95,8 +95,15 @@ public class EventServiceImpl implements EventService {
         return eventRepository.save(event);
     }
     @Override
-    public List<Event> getEventByCompany(Company company){
-        companyService.getCompanyById(company.getId());
-        return getEvents();
+    public List<Event> getEventByCompany(String id){
+        Company company=companyService.getCompanyById(id);
+        return company.getEvents();
+    }
+    @Override
+    public EventDetail getEventDetailById(String id) {
+        if (!eventDetailRepository.findById(id).isPresent()) {
+            throw new NotFoundException(String.format(EventConstanta.ID_EVENT_DETAIL_NOT_FOUND, id));
+        }
+        return eventDetailRepository.findById(id).get();
     }
 }

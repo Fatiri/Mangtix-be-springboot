@@ -20,6 +20,9 @@ public class Company {
 
     @OneToMany(mappedBy = StringConstant.COMPANY, cascade = CascadeType.PERSIST)
     private List<CompanyUser> companyUsers = new ArrayList<>();
+    @OneToMany(mappedBy = StringConstant.COMPANY, cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    private List<Event> events = new ArrayList<>();
 
     public Company(){
     }
@@ -53,6 +56,13 @@ public class Company {
         this.companyUsers = companyUsers;
     }
 
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -61,11 +71,12 @@ public class Company {
         Company company = (Company) o;
         return Objects.equals(id, company.id) &&
                 Objects.equals(companyName, company.companyName) &&
-                Objects.equals(companyUsers, company.companyUsers);
+                Objects.equals(companyUsers, company.companyUsers) &&
+                Objects.equals(events, company.events);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, companyName, companyUsers);
+        return Objects.hash(id, companyName, companyUsers, events);
     }
 }

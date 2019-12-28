@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = EventConstanta.EVENT_DETAIL_TABLE)
@@ -31,6 +32,9 @@ public class EventDetail {
     private Location location;
     @Transient
     private String locationIdTransient;
+    @OneToMany(mappedBy = EventConstanta.EVENT_DETAIL_MAPPED_BY, cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    private List<Ticket> tickets;
 
     public EventDetail(String locationName, String description, String eventDay, Date eventDate) {
         this.venue = locationName;
@@ -106,4 +110,11 @@ public class EventDetail {
         this.locationIdTransient = locationIdTransient;
     }
 
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
 }
