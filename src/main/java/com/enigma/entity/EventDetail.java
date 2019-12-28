@@ -32,7 +32,7 @@ public class EventDetail {
     private Location location;
     @Transient
     private String locationIdTransient;
-    @OneToMany(mappedBy = EventConstanta.EVENT_MAPPED_BY, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = EventConstanta.EVENT_DETAIL_MAPPED_BY, cascade = CascadeType.PERSIST)
     @JsonIgnore
     private List<Ticket> tickets;
 

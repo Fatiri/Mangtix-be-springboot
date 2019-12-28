@@ -11,7 +11,8 @@ public class EventConstanta {
     public static final String LOCATION_ID_RELATION = "location_id";
     public static final String COMPANY_ID_RELATION = "company_id";
     public static final String EVENT_MAPPED_BY = "event";
-    public static final String FILE_DIRECTORY = "/var/www/html/image/";
+    public static final String EVENT_DETAIL_MAPPED_BY = "eventDetail";
+    public static final String FILE_DIRECTORY = "C:\\nginx-1.16.1\\html\\data-events\\";
     public static final String ID_EVENT_DETAIL_NOT_FOUND="id Event Detail %s Not Found";
 
 }
