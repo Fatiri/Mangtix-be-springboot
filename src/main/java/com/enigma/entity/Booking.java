@@ -1,6 +1,9 @@
 package com.enigma.entity;
 import com.enigma.constanta.BookingConstant;
+import com.enigma.constanta.EventConstanta;
 import com.enigma.constanta.StringConstant;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -17,7 +20,7 @@ public class Booking {
     @GeneratedValue(generator = StringConstant.SYSTEM_UUID2)
     @GenericGenerator(name = StringConstant.SYSTEM_UUID2, strategy = StringConstant.UUID2)
     private String id;
-    @DateTimeFormat(pattern = StringConstant.DATE_TIME_FORMAT)
+    @JsonFormat(pattern = EventConstanta.EVENT_DATE_PATTERN)
     private Date bookDate;
     private Boolean paymentStatus;
 
@@ -26,6 +29,7 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = StringConstant.USER_ID)
+
     private User user;
     @Transient
     private String userIdTransient;
@@ -79,6 +83,9 @@ public class Booking {
     }
 
     public String getUserIdTransient() {
+        if (userIdTransient==null){
+            return user.getId();
+        }
         return userIdTransient;
     }
 
