@@ -24,7 +24,7 @@ public class User {
     private String password;
     private String fullName;
     private String bornPlace;
-    @DateTimeFormat(pattern = StringConstant.DATE_TIME_FORMAT)
+    @JsonFormat(pattern = EventConstanta.EVENT_DATE_PATTERN)
     private Date birthDate;
     @DateTimeFormat(pattern = StringConstant.DATE_TIME_FORMAT)
     private Date createAt = new Date();

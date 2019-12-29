@@ -14,5 +14,7 @@ public interface BookingService {
     public Page<Booking> getAllBookingData(Example<Booking> bookingForm, Pageable pageable);
     public Booking getBookingById(String bookingId);
     public void deleteBookingDataById(String bookingId);
+    public List<Booking> getBookingByUser(String id);
+    public List<Booking> getBookings();
 
 }

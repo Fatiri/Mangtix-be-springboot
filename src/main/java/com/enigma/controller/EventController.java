@@ -5,6 +5,7 @@ import com.enigma.entity.Event;
 import com.enigma.entity.EventDetail;
 import com.enigma.services.EventService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.swagger.annotations.ResponseHeader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 @RestController
 public class EventController {
 
@@ -66,5 +67,11 @@ public class EventController {
     @GetMapping("/event-detail/{id}")
     public EventDetail getEventDetailById(@PathVariable String id) throws Throwable {
         return eventService.getEventDetailById(id);
+    }
+
+    @CrossOrigin
+    @GetMapping("/event-detail")
+    public Event getEventByEventDetail(@RequestParam String eventDetailId){
+        return eventService.getEventByEventDetail(eventDetailId);
     }
 }

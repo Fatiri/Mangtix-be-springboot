@@ -76,13 +76,13 @@ public class UserController {
     }
 
     @CrossOrigin
-    @RolesAllowed("ADMIN")
+//    @RolesAllowed("ADMIN")
     @GetMapping("/users")
     public List<User> getAllUser(){
         return userService.getAllUser();
     }
 
-    @RolesAllowed("ADMIN")
+//    @RolesAllowed("ADMIN")
     @DeleteMapping("/user/{userId}")
     public void deleteUserById(@PathVariable String userId){
         userService.deleteUserById(userId);

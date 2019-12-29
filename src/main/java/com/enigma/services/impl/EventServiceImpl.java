@@ -106,4 +106,10 @@ public class EventServiceImpl implements EventService {
         }
         return eventDetailRepository.findById(id).get();
     }
+
+    @Override
+    public Event getEventByEventDetail(String id){
+        EventDetail eventDetail=getEventDetailById(id);
+        return eventRepository.findEventByEventDetailList(eventDetail);
+    }
 }
