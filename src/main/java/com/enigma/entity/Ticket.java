@@ -153,6 +153,8 @@ public class Ticket {
         this.freeTransient = freeTransient;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
