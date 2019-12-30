@@ -67,6 +67,9 @@ public class Payment {
     }
 
     public String getBookingIdTransient() {
+        if (bookingIdTransient==null){
+            return booking.getId();
+        }
         return bookingIdTransient;
     }
 

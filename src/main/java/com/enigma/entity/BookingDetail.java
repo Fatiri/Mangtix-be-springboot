@@ -78,6 +78,9 @@ public class BookingDetail {
     }
 
     public String getTicketIdTransient() {
+        if (ticketIdTransient==null){
+            return getTicket().getId();
+        }
         return ticketIdTransient;
     }
 
