@@ -69,8 +69,8 @@ public class UserController {
     }
 
     @CrossOrigin
-    @GetMapping("/user")
-    public User getUserById(@RequestBody String userId){
+    @GetMapping("/user/{userId}")
+    public User getUserById(@PathVariable String userId){
         return userService.getUserById(userId);
     }
 
