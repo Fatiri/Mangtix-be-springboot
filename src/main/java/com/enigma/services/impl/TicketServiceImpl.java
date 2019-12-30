@@ -80,13 +80,13 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
         Ticket ticketObject = getTicketById(ticket.getId());
         List<TicketCode> ticketCodeOnSale = new ArrayList<>();
         List<TicketCode> ticketCodeFree = new ArrayList<>();
-        if (ticket.getOnSaleTransient()!=0){
+
+        if (ticket.getOnSaleTransient() != 0) {
             setStatusCodeOutOnSale(ticket, ticketObject, ticketCodeOnSale);
         }
-        if (ticket.getFreeTransient()!=0){
+        if (ticket.getFreeTransient() != 0) {
             setStatusCodeOutFree(ticket, ticketObject, ticketCodeFree);
         }
-
         return ticketRepository.save(ticket);
     }
 
@@ -140,6 +140,12 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
             throw new ForbiddenException(BookingConstant.TICKET_NOT_AVAILABLE);
         }
         return ticketRepository.save(ticket);
+    }
+
+    @Override
+    public List<Ticket> getTicketsByEventDetail(String eventDetailId){
+        EventDetail eventDetail=eventService.getEventDetailById(eventDetailId);
+        return ticketRepository.findTicketsByEventDetail(eventDetail);
     }
 
 }

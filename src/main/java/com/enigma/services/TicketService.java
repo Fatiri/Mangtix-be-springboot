@@ -16,4 +16,6 @@ public interface TicketService {
     Ticket updateTicketCode(Ticket ticket);
 
     Ticket setAvailableAfterBooking(Ticket ticket, Integer quantity);
+
+    List<Ticket> getTicketsByEventDetail(String eventDetailId);
     }

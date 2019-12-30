@@ -32,9 +32,9 @@ public class BookingController {
     }
 
     @CrossOrigin
-    @GetMapping("/booking")
-    public Booking getBookingById(@RequestBody String bookingId){
-        return bookingService.getBookingById(bookingId);
+    @GetMapping("/booking/{id}")
+    public Booking getBookingById(@PathVariable String id){
+        return bookingService.getBookingById(id);
     }
 
     @CrossOrigin

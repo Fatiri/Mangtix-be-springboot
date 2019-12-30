@@ -10,5 +10,6 @@ public interface RoleService {
     public List<Role> getAllRole();
     public Role getRoleById(String roleId);
     public void deleteRoleById(String roleId);
+    Role getRoleByRoleName(String roleName);
 
 }
