@@ -47,4 +47,10 @@ public class CartController {
         Pageable pageable = PageRequest.of(page, size);
         return cartService.getPageCart(pageable);
     }
+
+    @CrossOrigin
+    @GetMapping("/cart-user")
+    public List<Cart> getCartByUserId(@RequestParam String userId){
+        return cartService.getCartsByUser(userId);
+    }
 }
