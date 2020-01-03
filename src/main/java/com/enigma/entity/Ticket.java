@@ -114,6 +114,9 @@ public class Ticket {
     }
 
     public String getEventDetailIdTransient() {
+        if (eventDetailIdTransient==null){
+            return getEventDetail().getId();
+        }
         return eventDetailIdTransient;
     }
 

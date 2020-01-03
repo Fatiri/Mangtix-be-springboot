@@ -47,6 +47,9 @@ public class CompanyUser {
     }
 
     public String getUserIdTransient() {
+        if (userIdTransient==null){
+            return getUser().getId();
+        }
         return userIdTransient;
     }
 

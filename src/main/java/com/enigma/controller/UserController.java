@@ -59,6 +59,7 @@ public class UserController {
         }
             System.out.println(companyUser);
         final  String jwt = jwtUtil.generateToken(userEntity.getId(), userEntity.getRole().getRoleName(), companyId);
+
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
@@ -80,6 +81,7 @@ public class UserController {
         return userService.getAllUser();
     }
 
+    @CrossOrigin
     @DeleteMapping("/user/{userId}")
     public void deleteUserById(@PathVariable String userId){
         userService.deleteUserById(userId);

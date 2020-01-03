@@ -38,6 +38,12 @@ public class TicketController {
     }
 
     @CrossOrigin
+    @GetMapping("/ticket-list")
+    public List<Ticket> getTicketsByEventDetail(@RequestParam String eventDetailId){
+        return ticketService.getTicketsByEventDetail(eventDetailId);
+    }
+
+    @CrossOrigin
     @DeleteMapping("/ticket/{id}")
     public void deleteTicketById(@PathVariable String id){
         ticketService.delete(id);

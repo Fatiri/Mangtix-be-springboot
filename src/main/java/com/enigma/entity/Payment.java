@@ -19,7 +19,6 @@ public class Payment {
     private BigDecimal totalPayment;
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date paymentDate = new Date();
-    private Boolean statusArrival = false;
     @OneToOne
     @JoinColumn(name = "booking_id")
     private Booking booking;
@@ -29,10 +28,10 @@ public class Payment {
     public Payment() {
     }
 
-    public Payment(BigDecimal totalPayment, Date paymentDate, Boolean statusArrival) {
+    public Payment(BigDecimal totalPayment, Date paymentDate) {
         this.totalPayment = totalPayment;
         this.paymentDate = paymentDate;
-        this.statusArrival = statusArrival;
+
     }
 
     public String getId() {
@@ -59,14 +58,6 @@ public class Payment {
         this.paymentDate = paymentDate;
     }
 
-    public Boolean getStatusArrival() {
-        return statusArrival;
-    }
-
-    public void setStatusArrival(Boolean statusArrival) {
-        this.statusArrival = statusArrival;
-    }
-
     public Booking getBooking() {
         return booking;
     }
@@ -76,6 +67,9 @@ public class Payment {
     }
 
     public String getBookingIdTransient() {
+        if (bookingIdTransient==null){
+            return booking.getId();
+        }
         return bookingIdTransient;
     }
 
@@ -90,12 +84,11 @@ public class Payment {
         Payment payment = (Payment) o;
         return Objects.equals(id, payment.id) &&
                 Objects.equals(totalPayment, payment.totalPayment) &&
-                Objects.equals(paymentDate, payment.paymentDate) &&
-                Objects.equals(statusArrival, payment.statusArrival);
+                Objects.equals(paymentDate, payment.paymentDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, totalPayment, paymentDate, statusArrival);
+        return Objects.hash(id, totalPayment, paymentDate);
     }
 }

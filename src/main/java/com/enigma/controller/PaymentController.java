@@ -13,21 +13,25 @@ public class PaymentController {
     @Autowired
     PaymentService paymentService;
 
+    @CrossOrigin
     @PostMapping("/payment")
     public Payment savePayment(@RequestBody Payment payment) {
         return paymentService.savePayment(payment);
     }
 
+    @CrossOrigin
     @GetMapping("/payments")
     public List<Payment> getAllPayment() {
         return paymentService.getAllPayment();
     }
 
+    @CrossOrigin
     @GetMapping("/payment/{paymentId}")
     public Payment getPaymentId(@PathVariable String paymentId) {
         return paymentService.getPaymentById(paymentId);
     }
 
+    @CrossOrigin
     @PutMapping("/payment")
     public Payment updatePayment(@RequestBody Payment payment) {
         return paymentService.savePayment(payment);

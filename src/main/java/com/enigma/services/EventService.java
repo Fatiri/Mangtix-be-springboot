@@ -21,5 +21,6 @@ public interface EventService {
     public Page<Event> eventPagination(Pageable pageable);
     public List<Event> getEventByCompany(String id);
     public EventDetail getEventDetailById(String id);
+    public Event getEventByEventDetail(String id);
 
 }

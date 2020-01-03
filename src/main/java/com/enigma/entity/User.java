@@ -5,6 +5,7 @@ import com.enigma.constanta.StringConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -20,11 +21,12 @@ public class User {
     @GeneratedValue(generator = StringConstant.SYSTEM_UUID2)
     @GenericGenerator(name = StringConstant.SYSTEM_UUID2, strategy = StringConstant.UUID2)
     private String id;
+    @Column(unique = true)
     private String userName;
     private String password;
     private String fullName;
     private String bornPlace;
-    @DateTimeFormat(pattern = StringConstant.DATE_TIME_FORMAT)
+    @JsonFormat(pattern = EventConstanta.EVENT_DATE_PATTERN)
     private Date birthDate;
     @DateTimeFormat(pattern = StringConstant.DATE_TIME_FORMAT)
     private Date createAt = new Date();
@@ -45,6 +47,8 @@ public class User {
     @JsonIgnore
     private List<Booking> bookingList = new ArrayList<>();
 
+    @OneToMany(mappedBy = StringConstant.USER, cascade = CascadeType.PERSIST)
+    private List<CompanyUser> companyUser;
 
     public User() {
     }
@@ -155,6 +159,14 @@ public class User {
         this.locationIdTransient = locationIdTransient;
     }
 
+    public List<CompanyUser> getCompanyUser() {
+        return companyUser;
+    }
+
+    public void setCompanyUser(List<CompanyUser> companyUser) {
+        this.companyUser = companyUser;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -166,12 +178,18 @@ public class User {
                 Objects.equals(fullName, user.fullName) &&
                 Objects.equals(bornPlace, user.bornPlace) &&
                 Objects.equals(birthDate, user.birthDate) &&
-                Objects.equals(createAt, user.createAt);
+                Objects.equals(createAt, user.createAt) &&
+                Objects.equals(location, user.location) &&
+                Objects.equals(locationIdTransient, user.locationIdTransient) &&
+                Objects.equals(role, user.role) &&
+                Objects.equals(roleIdTransient, user.roleIdTransient) &&
+                Objects.equals(bookingList, user.bookingList) &&
+                Objects.equals(companyUser, user.companyUser);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userName, password, fullName, bornPlace, birthDate, createAt);
+        return Objects.hash(id, userName, password, fullName, bornPlace, birthDate, createAt, location, locationIdTransient, role, roleIdTransient, bookingList, companyUser);
     }
 
     @Override
@@ -184,9 +202,12 @@ public class User {
                 ", bornPlace='" + bornPlace + '\'' +
                 ", birthDate=" + birthDate +
                 ", createAt=" + createAt +
+                ", location=" + location +
+                ", locationIdTransient='" + locationIdTransient + '\'' +
                 ", role=" + role +
                 ", roleIdTransient='" + roleIdTransient + '\'' +
                 ", bookingList=" + bookingList +
+                ", companyUser=" + companyUser +
                 '}';
     }
 }
