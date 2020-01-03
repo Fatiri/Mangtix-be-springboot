@@ -16,7 +16,7 @@ public class Cart {
     @GenericGenerator(name = StringConstant.SYSTEM_UUID2, strategy = StringConstant.UUID2)
     private String id;
     @Transient
-    private String ticketIdTrancient;
+    private String ticketIdTransient;
     @ManyToOne
     @JoinColumn(name = StringConstant.TICKET_ID)
     @JsonIgnore
@@ -24,7 +24,7 @@ public class Cart {
     private Integer quantity;
     private BigDecimal subTotal;
     @Transient
-    private String userIdTrancient;
+    private String userIdTransient;
     @ManyToOne
     @JoinColumn(name = StringConstant.USER_ID)
     @JsonIgnore
@@ -33,27 +33,27 @@ public class Cart {
     public Cart() {
     }
 
-    public Cart(String ticketIdTrancient, String userIdTrancient, Integer quantity, BigDecimal subTotal) {
-        this.ticketIdTrancient = ticketIdTrancient;
-        this.userIdTrancient = userIdTrancient;
+    public Cart(String ticketIdTransient, String userIdTransient, Integer quantity, BigDecimal subTotal) {
+        this.ticketIdTransient = ticketIdTransient;
+        this.userIdTransient = userIdTransient;
         this.subTotal = subTotal;
         this.quantity = quantity;
     }
 
-    public String getTicketIdTrancient() {
-        return ticketIdTrancient;
+    public String getTicketIdTransient() {
+        return ticketIdTransient;
     }
 
-    public void setTicketIdTrancient(String ticketIdTrancient) {
-        this.ticketIdTrancient = ticketIdTrancient;
+    public void setTicketIdTransient(String ticketIdTransient) {
+        this.ticketIdTransient = ticketIdTransient;
     }
 
-    public String getUserIdTrancient() {
-        return userIdTrancient;
+    public String getUserIdTransient() {
+        return userIdTransient;
     }
 
-    public void setUserIdTrancient(String userIdTrancient) {
-        this.userIdTrancient = userIdTrancient;
+    public void setUserIdTransient(String userIdTransient) {
+        this.userIdTransient = userIdTransient;
     }
 
     public String getId() {
