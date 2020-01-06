@@ -23,6 +23,9 @@ public class BookingDetail {
     @JsonIgnore
     private Booking booking;
 
+    @Transient
+    private String bookingIdTransient;
+
     @ManyToOne
     @JoinColumn (name = StringConstant.TICKET_ID)
     private Ticket ticket;
@@ -82,6 +85,17 @@ public class BookingDetail {
             return getTicket().getId();
         }
         return ticketIdTransient;
+    }
+
+    public String getBookingIdTransient() {
+        if (bookingIdTransient==null){
+            return getBooking().getId();
+        }
+        return bookingIdTransient;
+    }
+
+    public void setBookingIdTransient(String bookingIdTransient) {
+        this.bookingIdTransient = bookingIdTransient;
     }
 
     public void setTicketIdTransient(String ticketIdTransient) {

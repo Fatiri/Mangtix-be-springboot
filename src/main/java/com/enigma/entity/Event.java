@@ -29,9 +29,8 @@ public class Event {
     @Transient
     private String companyIdTransient;
 
-
-
     @OneToMany(mappedBy = EventConstanta.EVENT_MAPPED_BY, cascade = CascadeType.ALL)
+
     private List<EventDetail> eventDetailList;
     public Event() {
     }

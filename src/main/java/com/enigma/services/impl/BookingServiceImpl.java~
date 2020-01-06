@@ -89,6 +89,3 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.findBookingsByUser(user);
     }
 }
-
-
-

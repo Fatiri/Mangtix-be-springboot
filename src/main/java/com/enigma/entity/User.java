@@ -48,6 +48,7 @@ public class User {
     private List<Booking> bookingList = new ArrayList<>();
 
     @OneToMany(mappedBy = StringConstant.USER, cascade = CascadeType.PERSIST)
+    @JsonIgnore
     private List<CompanyUser> companyUser;
 
     public User() {
@@ -128,6 +129,9 @@ public class User {
     }
 
     public String getRoleIdTransient() {
+        if (roleIdTransient==null){
+            return getRole().getId();
+        }
         return roleIdTransient;
     }
 
@@ -152,6 +156,9 @@ public class User {
     }
 
     public String getLocationIdTransient() {
+        if (locationIdTransient==null){
+            return getLocation().getId();
+        }
         return locationIdTransient;
     }
 

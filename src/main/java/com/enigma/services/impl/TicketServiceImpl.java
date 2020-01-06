@@ -2,9 +2,12 @@ package com.enigma.services.impl;
 
 import com.enigma.constanta.BookingConstant;
 import com.enigma.constanta.MessageConstant;
+import com.enigma.constanta.TicketConstant;
 import com.enigma.entity.*;
+import com.enigma.exception.BadRequestException;
 import com.enigma.exception.ForbiddenException;
 import com.enigma.exception.NotFoundException;
+import com.enigma.repositories.TicketCodeRepository;
 import com.enigma.repositories.TicketRepository;
 import com.enigma.services.CategoryService;
 import com.enigma.services.EventService;
@@ -17,6 +20,8 @@ import java.util.*;
 public class TicketServiceImpl implements com.enigma.services.TicketService {
     @Autowired
     TicketRepository ticketRepository;
+    @Autowired
+    TicketCodeRepository ticketCodeRepository;
     @Autowired
     CategoryService categoryService;
     @Autowired
@@ -148,4 +153,13 @@ public class TicketServiceImpl implements com.enigma.services.TicketService {
         return ticketRepository.findTicketsByEventDetail(eventDetail);
     }
 
+    @Override
+    public TicketCode findTicketCodeByTicketCode(String ticketCode) {
+        TicketCode ticketCodeEntity = ticketCodeRepository.findTicketCodeByTicketCode(ticketCode);
+        if (ticketCodeEntity.getArrived().equals(true)){
+            throw new BadRequestException(TicketConstant.TICKET_IS_USED);
+        }
+        ticketCodeEntity.setArrived(true);
+        return ticketCodeRepository.save(ticketCodeEntity);
+    }
 }

@@ -59,11 +59,16 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event saveEvent(Event event) {
+
         return eventRepository.save(event);
     }
 
     @Override
     public Event updateEvent(Event event) {
+        Event event1 = getEventById(event.getId());
+        for (EventDetail eventDetail: event1.getEventDetailList()) {
+            eventDetail.setEvent(event1);
+        }
         return eventRepository.save(event);
     }
 

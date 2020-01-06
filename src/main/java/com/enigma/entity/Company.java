@@ -19,6 +19,7 @@ public class Company {
     private String companyName;
 
     @OneToMany(mappedBy = StringConstant.COMPANY, cascade = CascadeType.PERSIST)
+    @JsonIgnore
     private List<CompanyUser> companyUsers = new ArrayList<>();
     @OneToMany(mappedBy = StringConstant.COMPANY, cascade = CascadeType.PERSIST)
     @JsonIgnore

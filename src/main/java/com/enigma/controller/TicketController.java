@@ -1,6 +1,7 @@
 package com.enigma.controller;
 
 import com.enigma.entity.Ticket;
+import com.enigma.entity.TicketCode;
 import com.enigma.services.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -47,5 +48,12 @@ public class TicketController {
     @DeleteMapping("/ticket/{id}")
     public void deleteTicketById(@PathVariable String id){
         ticketService.delete(id);
+    }
+
+    @CrossOrigin
+    @PostMapping("/ticket-code/{ticketCode}")
+    public TicketCode findTicketCodeByTicketCode(@PathVariable String ticketCode){
+        return ticketService.findTicketCodeByTicketCode(ticketCode);
+
     }
 }

@@ -27,13 +27,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
-        System.out.println(user.getRoleIdTransient());
-        System.out.println(user.getLocationIdTransient());
         Role role = roleService.getRoleById(user.getRoleIdTransient());
-        System.out.println(role);
         user.setRole(role);
         Location location = locationService.getLocationById(user.getLocationIdTransient());
-        System.out.println(location);
         user.setLocation(location);
         return userRepository.save(user);
     }

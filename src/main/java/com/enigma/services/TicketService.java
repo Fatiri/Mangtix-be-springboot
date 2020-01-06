@@ -1,6 +1,7 @@
 package com.enigma.services;
 
 import com.enigma.entity.Ticket;
+import com.enigma.entity.TicketCode;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface TicketService {
     Ticket setAvailableAfterBooking(Ticket ticket, Integer quantity);
 
     List<Ticket> getTicketsByEventDetail(String eventDetailId);
-    }
+
+    TicketCode findTicketCodeByTicketCode(String ticketCode);
+}
